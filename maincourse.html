@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="en" class="h-full">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Main Course Menu - Fable & Frost</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&amp;display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="category icon" href="\photos\category-icon.png">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&amp;family=DM+Sans:wght@300;400;500;600&amp;family=Poppins:wght@400;500;600;700&amp;display=swap"
+    rel="stylesheet">
+  <style>
+    h2 {
+      color: #81063a !important;
+    }
+
+    :root {
+      --bg: #fdf8f3;
+      --surface: #ffffff;
+      --text: #1a1a2e;
+      --accent: #81063a;
+      --warm: #e8a045;
+    }
+
+    * {
+      font-family: 'DM Sans', sans-serif;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .playfair {
+      font-family: 'Poppins', serif;
+    }
+
+    .page-heading {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+    }
+
+    .flipkart-blue {
+      background: #db5d5d;
+    }
+
+    .card-shadow {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    }
+
+    .badge-veg::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #0f8a65;
+      border-radius: 50%;
+      margin-right: 4px;
+    }
+
+    .badge-nonveg::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #d32f2f;
+      border-radius: 50%;
+      margin-right: 4px;
+    }
+
+    .menu-item:hover {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .menu-item {
+      transition: all 0.2s ease;
+      background: var(--surface);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    .add-btn {
+      transition: all 0.15s;
+      background: #81063a;
+      color: white;
+    }
+
+    .add-btn:hover {
+      background: #a81a54;
+    }
+
+    .cart-bounce {
+      animation: cartPop 0.3s ease;
+    }
+
+    @keyframes cartPop {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.3);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .category-tab.active {
+      border-bottom: 3px solid #2874f0;
+      color: #2874f0;
+      font-weight: 800;
+    }
+
+    .category-tab {
+      border-bottom: 3px solid transparent;
+    }
+
+    .star {
+      color: #ff9f00;
+    }
+
+    .offer-badge {
+      background: linear-gradient(135deg, #ff6600, #ff3d00);
+    }
+
+    .hero-gradient {
+      background: linear-gradient(135deg, #1a237e 0%, #2874f0 60%, #42a5f5 100%);
+    }
+
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 8px 0;
+      transition: gap 0.2s;
+      text-decoration: none;
+    }
+
+    .back-btn:hover {
+      gap: 10px;
+    }
+
+    .section-accent {
+      width: 48px;
+      height: 3px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--warm));
+      margin: 8px 0 20px;
+    }
+
+    .cuisine-icon-btn {
+      border: none;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .cuisine-icon-circle {
+      transition: all 0.3s ease;
+    }
+
+    .cuisine-icon-btn:hover .cuisine-icon-circle {
+      transform: scale(1.1);
+    }
+  </style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+</head>
+
+<body class="h-full">
+  <!-- HEADER -->
+  <header id="main-header" class="sticky top-0 z-50 shadow-md"
+    style="background: #ffe7c4; backdrop-filter: blur(12px); border-bottom: 1px solid rgba(192, 57, 43, 0.12);">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center gap-4">
+      <a href="fable.html" class="back-btn" style="color:#81063a">
+        <i data-lucide="arrow-left" style="width:18px;height:18px; color:#81063a"></i> Back to Menu
+      </a>
+      <div class="flex-1 max-w-sm relative">
+        <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400"></i>
+        <input id="search-input" type="text" placeholder="Search main course..."
+          class="w-full rounded-full px-10 py-2 text-sm outline-none text-gray-800 font-semibold"
+          oninput="filterItems(this.value)">
+      </div><!-- Cart Button -->
+      <button onclick="toggleCart()"
+        class="relative flex items-center justify-center w-10 h-10 rounded-full transition-all hover:opacity-80"
+        style="background-color: rgba(219, 93, 93, 0.15);">
+        <i data-lucide="shopping-cart" class="w-5 h-5" style="color:#81063a;"></i>
+        <span id="cart-count"
+          class="absolute -top-1 -right-1 bg-[#81063a] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center hidden">0</span>
+      </button><!-- Right Side: Name -->
+      <div class="flex flex-col items-end gap-1 flex-shrink-0">
+        <h1 class="playfair text-xl md:text-2xl font-bold" style="color:#81063a;">🍽️ Main Course</h1>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="max-w-6xl mx-auto px-4 py-4">
+    <!-- CUISINE ICONS -->
+    <div class="mb-6">
+      <div class="flex justify-center gap-4 flex-wrap">
+        <button onclick="filterByCuisine('indian')"
+          class="cuisine-icon-btn flex flex-col items-center p-4 rounded-xl bg-gradient-to-br from-orange-100 to-orange-200 hover:from-orange-200 hover:to-orange-300 transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg">
+          <div
+            class="cuisine-icon-circle w-16 h-16 rounded-full bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center mb-2 shadow-inner overflow-hidden">
+            <img src="photos/butterchicken.png" alt="Indian Cuisine" class="w-full h-full object-cover">
+          </div>
+          <span class="text-sm font-semibold text-gray-700">Indian</span>
+        </button>
+        <button onclick="filterByCuisine('chinese')"
+          class="cuisine-icon-btn flex flex-col items-center p-4 rounded-xl bg-gradient-to-br from-red-100 to-red-200 hover:from-red-200 hover:to-red-300 transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg">
+          <div
+            class="cuisine-icon-circle w-16 h-16 rounded-full bg-gradient-to-br from-red-400 to-red-600 flex items-center justify-center mb-2 shadow-inner overflow-hidden">
+            <img src="photos/glassnoodlespringroll.png" alt="Chinese Cuisine" class="w-full h-full object-cover">
+          </div>
+          <span class="text-sm font-semibold text-gray-700">Chinese</span>
+        </button>
+        <button onclick="filterByCuisine('continental')"
+          class="cuisine-icon-btn flex flex-col items-center p-4 rounded-xl bg-gradient-to-br from-blue-100 to-blue-200 hover:from-blue-200 hover:to-blue-300 transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg">
+          <div
+            class="cuisine-icon-circle w-16 h-16 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center mb-2 shadow-inner overflow-hidden">
+            <img src="photos/chickenpepperonipizza.png" alt="Continental Cuisine" class="w-full h-full object-cover">
+          </div>
+          <span class="text-sm font-semibold text-gray-700">Continental</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- FILTER ROW -->
+    <div class="flex gap-2 mb-3 flex-wrap">
+      <button onclick="setFilter('all')" id="filter-all"
+        class="filter-btn active text-xs font-bold px-3 py-1.5 rounded-full border-2 border-blue-500 text-blue-600 bg-blue-50">All</button>
+      <button onclick="setFilter('veg')" id="filter-veg"
+        class="filter-btn text-xs font-bold px-3 py-1.5 rounded-full border-2 border-gray-200 text-gray-600 hover:border-green-500 hover:text-green-600">🟢
+        Pure Veg</button>
+      <button onclick="setFilter('nonveg')" id="filter-nonveg"
+        class="filter-btn text-xs font-bold px-3 py-1.5 rounded-full border-2 border-gray-200 text-gray-600 hover:border-red-500 hover:text-red-600">🔴
+        Non-Veg</button>
+      <button onclick="setFilter('bestseller')" id="filter-bestseller"
+        class="filter-btn text-xs font-bold px-3 py-1.5 rounded-full border-2 border-gray-200 text-gray-600 hover:border-[#81063a] hover:text-[#81063a]">🔥
+        Bestseller</button>
+      <button onclick="setFilter('breads')" id="filter-breads"
+        class="filter-btn text-xs font-bold px-3 py-1.5 rounded-full border-2 border-gray-200 text-gray-600 hover:border-[#81063a] hover:text-[#81063a]">🍞
+        Breads</button>
+      <button onclick="setFilter('rice')" id="filter-rice"
+        class="filter-btn text-xs font-bold px-3 py-1.5 rounded-full border-2 border-gray-200 text-gray-600 hover:border-yellow-500 hover:text-yellow-600">🍚
+        Rice</button>
+    </div>
+
+    <!-- ITEMS GRID -->
+    <div id="items-grid" class="grid grid-cols-2 gap-4"></div>
+    <div id="no-results" class="hidden text-center py-16 text-gray-400 font-semibold">
+      No items found 😢
+    </div>
+  </main>
+
+  <!-- Cart Drawer -->
+  <div id="cart-overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden z-40" onclick="toggleCart()"></div>
+  <div id="cart-drawer"
+    class="fixed top-0 right-0 h-full w-80 bg-white shadow-xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col">
+    <div class="flex items-center justify-between p-4 border-b">
+      <h2 class="text-lg font-bold">Your Cart</h2>
+      <button onclick="toggleCart()" class="text-gray-500 hover:text-gray-700">
+        <i data-lucide="x" class="w-6 h-6"></i>
+      </button>
+    </div>
+    <div id="cart-empty" class="flex-1 flex items-center justify-center text-gray-500">
+      <div class="text-center">
+        <i data-lucide="shopping-cart" class="w-12 h-12 mx-auto mb-2 opacity-50"></i>
+        <p>Your cart is empty</p>
+      </div>
+    </div>
+    <div id="cart-items" class="flex-1 overflow-y-auto p-4 space-y-2"></div>
+    <div id="cart-footer" class="border-t p-4 hidden">
+      <div class="space-y-2 mb-4">
+        <div class="flex justify-between text-sm">
+          <span>Subtotal</span>
+          <span id="cart-subtotal">₹0</span>
+        </div>
+        <div class="flex justify-between text-sm">
+          <span>Delivery</span>
+          <span id="cart-delivery">₹49</span>
+        </div>
+        <div class="flex justify-between font-bold">
+          <span>Total</span>
+          <span id="cart-total">₹0</span>
+        </div>
+      </div>
+      <button
+        class="w-full bg-[#81063a] text-white py-2 rounded-lg font-bold hover:bg-[#a81a54] transition-colors">Place
+        Order</button>
+    </div>
+  </div>
+
+  <script>
+    const menuData = [
+      // Continental Main Course - Pasta
+      { id: 1, name: "Penne Arrabbiata Pasta", category: "Main Course", type: "veg", cuisine: "continental", price: 399, originalPrice: 499, rating: 4.4, reviews: 234, bestseller: false, emoji: "🍝", desc: "Classic penne tossed in spicy tomato arrabbiata sauce with garlic, herbs and chilli for a bold Italian flavour.", img: "photos/pennearrabbiata.png" },
+      { id: 2, name: "Penne Alfredo", category: "Main Course", type: "veg", cuisine: "continental", price: 299, originalPrice: 399, rating: 4.6, reviews: 312, bestseller: true, emoji: "🍝", desc: "Creamy Alfredo sauce with parmesan and herbs over penne; choice of sautéed vegetables for added richness.", img: "photos/pennealfredveg.png" },
+      { id: 3, name: "Penne Alfredo", category: "Main Course", type: "nonveg", cuisine: "continental", price: 399, originalPrice: 499, rating: 4.7, reviews: 345, bestseller: true, emoji: "🍝", desc: "Creamy Alfredo sauce with parmesan and herbs over penne; choice of grilled chicken for added richness.", img: "photos/pennealfrednonveg.png" },
+      { id: 4, name: "Aglio Olio Pasta", category: "Main Course", type: "veg", cuisine: "continental", price: 219, originalPrice: 299, rating: 4.3, reviews: 187, bestseller: false, emoji: "🍝", desc: "Spaghetti tossed in olive oil, garlic, chilli flakes and parsley for a light, flavourful, authentic Italian preparation.", img: "photos/aglioolio.png" },
+      { id: 5, name: "Lasagna", category: "Main Course", type: "veg", cuisine: "continental", price: 399, originalPrice: 449, rating: 4.8, reviews: 245, bestseller: true, emoji: "🍝", desc: "Layered pasta baked with creamy béchamel, cheese and rich tomato ragú; option of vegetables filling.", img: "photos/lasagna.png" },
+      { id: 6, name: "Lasagna", category: "Main Course", type: "nonveg", cuisine: "continental", price: 499, originalPrice: 549, rating: 4.9, reviews: 320, bestseller: true, emoji: "🍝", desc: "Layered pasta baked with creamy béchamel, cheese and rich tomato ragú; option of minced meat filling.", img: "photos/lasagna.png" },
+      { id: 7, name: "Spinach & Ricotta Ravioli", category: "Main Course", type: "veg", cuisine: "continental", price: 299, originalPrice: 349, rating: 4.7, reviews: 142, bestseller: false, emoji: "🍝", desc: "Delicate ravioli stuffed with spinach and ricotta, finished in butter-sage sauce for a soft, creamy Italian indulgence.", img: "photos/spinach&ricottaravioli.png" },
+
+
+      // Continental Main Course - Pizza
+      { id: 8, name: "Margherita (Cheese & Basil)Pizza", category: "Main Course", type: "veg", cuisine: "continental", price: 229, originalPrice: 260, rating: 4.5, reviews: 340, bestseller: true, emoji: "🍕", desc: "Classic Margherita, loaded with mozzarella cheese & fresh basil leaves", img: "photos/margheritapizza.png" },
+      { id: 9, name: "Farmhouse (Veggies)Pizza", category: "Main Course", type: "veg", cuisine: "continental", price: 269, originalPrice: 310, rating: 4.6, reviews: 280, bestseller: true, emoji: "🍕", desc: "Onion, capsicum, mushroom, olives & jalapeno, mozzarella, liquid cheese", img: "photos/farmhousepizza.png" },
+      { id: 10, name: "Double Cheese Margherita Pizza", category: "Main Course", type: "veg", cuisine: "continental", price: 269, originalPrice: 310, rating: 4.5, reviews: 210, bestseller: false, emoji: "🍕", desc: "Double mozzarella, liquid cheese, cheese slice & rich tomato sauce", img: "photos/doublecheesepizza.png" },
+      { id: 11, name: "Spicy Veggie Pizza", category: "Main Course", type: "veg", cuisine: "continental", price: 299, originalPrice: 340, rating: 4.4, reviews: 190, bestseller: false, emoji: "🍕", desc: "Spicy paneer, capsicum, red onion, golden corn, olives, jalapenos, peri peri", img: "photos/spicyveggiepizza.png" },
+      { id: 12, name: "Tandoori Paneer Tikka Pizza", category: "Main Course", type: "veg", cuisine: "continental", price: 299, originalPrice: 340, rating: 4.8, reviews: 420, bestseller: true, emoji: "🍕", desc: "Tandoori paneer, red paprika, mint mayo, capsicum, onion", img: "photos/paneertikkapizza.png" },
+      { id: 13, name: "Crispy Chicken (Fried Chicken) Pizza", category: "Main Course", type: "nonveg", cuisine: "continental", price: 299, originalPrice: 340, rating: 4.6, reviews: 310, bestseller: true, emoji: "🍕", desc: "Crispy fried chicken, jalapenos, onion, capsicum, olives, barbecue sauce", img: "photos/crispychickenpizza.png" },
+      { id: 14, name: "Chicken Pepperoni Pizza", category: "Main Course", type: "nonveg", cuisine: "continental", price: 329, originalPrice: 380, rating: 4.7, reviews: 360, bestseller: true, emoji: "🍕", desc: "Chicken pepperoni, mozzarella cheese", img: "photos/chickenpepperonipizza.png" },
+      { id: 15, name: "Chicken Tikka Pizza", category: "Main Course", type: "nonveg", cuisine: "continental", price: 329, originalPrice: 380, rating: 4.8, reviews: 450, bestseller: true, emoji: "🍕", desc: "Chicken tikka, onion, capsicum, olives, red paprika, mint mayo", img: "photos/chickentikkapizza.png" },
+
+      // Indian Main Course - Biryani
+      { id: 33, name: "Veg Biryani", category: "Rice", type: "veg", cuisine: "indian", price: 399, originalPrice: 499, rating: 4.7, reviews: 180, bestseller: true, emoji: "🍛", desc: "Layering fluffy basmati rice with marinated, spiced vegetables (carrots, beans, peas, potatoes) and cooking on low heat (\"dum\").", img: "photos/vegbiryani.png" },
+      { id: 34, name: "Chicken Biryani", category: "Rice", type: "nonveg", cuisine: "indian", price: 499, originalPrice: 649, rating: 4.8, reviews: 200, bestseller: true, emoji: "🍗", desc: "Layering marinated chicken with partially cooked basmati rice, spices, fried onions, and herbs, then cooking on low heat (\"dum\").", img: "photos/chickenbiryani.png" },
+      { id: 35, name: "Lamb Biryani", category: "Rice", type: "nonveg", cuisine: "indian", price: 599, originalPrice: 749, rating: 4.9, reviews: 220, bestseller: false, emoji: "🍖", desc: "Tender marinated lamb cooked with spices, layered with fluffy basmati rice, caramelized onions, and mint, then steamed (dum) to perfection.", img: "photos/lambbiryani.png" },
+
+      // Rice
+      { id: 29, name: "Veg Pulao", category: "Rice", type: "veg", cuisine: "indian", price: 249, originalPrice: 349, rating: 4.5, reviews: 120, bestseller: false, emoji: "🍚", desc: "A one-pot meal made by cooking basmati rice with mixed vegetables, whole spices, and herbs.", img: "photos/vegpulao.png" },
+      { id: 30, name: "Kashmiri Pulao", category: "Rice", type: "veg", cuisine: "indian", price: 299, originalPrice: 399, rating: 4.6, reviews: 140, bestseller: false, emoji: "🍚", desc: "Basmati rice cooked with saffron, ghee, nuts (cashews, almonds, walnuts), dried fruits (raisins, dates), and often fresh fruits like pomegranate and apple.", img: "photos/kashmiripulao.png" },
+      { id: 31, name: "Jeera Rice", category: "Rice", type: "veg", cuisine: "indian", price: 249, originalPrice: 349, rating: 4.4, reviews: 110, bestseller: false, emoji: "🍚", desc: "Basmati rice cooked with cumin seeds and mild spices.", img: "photos/jeerarice.png" },
+      { id: 32, name: "Steam Rice", category: "Rice", type: "veg", cuisine: "indian", price: 199, originalPrice: 299, rating: 4.3, reviews: 100, bestseller: false, emoji: "🍚", desc: "Steamed fluffy basmati rice.", img: "photos/steamrice.png" },
+
+      // Indian Main Course - Breads
+      { id: 201, name: "Plain Tandoori Roti", category: "Breads", type: "veg", cuisine: "indian", price: 65, originalPrice: 85, rating: 4.5, reviews: 90, bestseller: false, emoji: "🍞", desc: "Traditional tandoori roti made with whole wheat flour.", img: "photos/plaintandooriroti.png" },
+      { id: 202, name: "Butter Tandoori Roti", category: "Breads", type: "veg", cuisine: "indian", price: 75, originalPrice: 99, rating: 4.6, reviews: 100, bestseller: false, emoji: "🧈", desc: "Tandoori roti brushed with butter for extra flavor.", img: "photos/buttertandooriroti.png" },
+      { id: 203, name: "Plain Naan", category: "Breads", type: "veg", cuisine: "indian", price: 99, originalPrice: 129, rating: 4.7, reviews: 110, bestseller: false, emoji: "🍞", desc: "Soft and fluffy plain naan made with refined flour.", img: "photos/plainnaan.png" },
+      { id: 204, name: "Butter Naan", category: "Breads", type: "veg", cuisine: "indian", price: 129, originalPrice: 159, rating: 4.8, reviews: 120, bestseller: true, emoji: "🧈", desc: "Soft and fluffy naan brushed with butter.", img: "photos/butternaan.png" },
+      { id: 205, name: "Lachha Paratha", category: "Breads", type: "veg", cuisine: "indian", price: 129, originalPrice: 159, rating: 4.7, reviews: 130, bestseller: false, emoji: "🥐", desc: "Layered Indian flatbread made with whole wheat flour.", img: "photos/lacchaparantha.png" },
+      { id: 206, name: "Stuffed Kulcha (Aloo/Paneer/Mix)", category: "Breads", type: "veg", cuisine: "indian", price: 149, originalPrice: 179, rating: 4.6, reviews: 140, bestseller: false, emoji: "🥙", desc: "Soft kulcha stuffed with spiced potato, paneer, or mixed fillings.", img: "photos/stuffedkulcha.png" },
+      { id: 207, name: "Rumali Roti", category: "Breads", type: "veg", cuisine: "indian", price: 49, originalPrice: 69, rating: 4.5, reviews: 80, bestseller: false, emoji: "🍞", desc: "Thin and soft Indian flatbread.", img: "photos/rumaliroti.png" },
+      // Indian Main Course - Vegetable
+      { id: 301, name: "Paneer Tikka Masala", category: "Main Course", type: "veg", cuisine: "indian", price: 499, originalPrice: 620, rating: 4.7, reviews: 120, bestseller: false, emoji: "🧀", desc: "Paneer Tikka Masala, a marinated paneer cubes grilled to perfection and then cooked in spicy gravy, is delicious in every bite", img: "photos/paneertikkamasala.png" },
+      { id: 302, name: "Shahi Paneer", category: "Main Course", type: "veg", cuisine: "indian", price: 499, originalPrice: 620, rating: 4.8, reviews: 110, bestseller: true, emoji: "🧀", desc: "Shahi Paneer is a Mughlai restaurant-style paneer curry made in a creamy white gravy of onions, nuts, melon seeds, yogurt, cream and fragrant spices.", img: "photos/shahipaneer.png" },
+      { id: 303, name: "Kadhai Paneer", category: "Main Course", type: "veg", cuisine: "indian", price: 499, originalPrice: 620, rating: 4.7, reviews: 130, bestseller: false, emoji: "🧀", desc: "Combines succulent paneer, crisp bell peppers, and onions in a spiced tomato gravy.", img: "photos/kadhaipaneer.png" },
+      { id: 304, name: "Paneer Butter Masala", category: "Main Course", type: "veg", cuisine: "indian", price: 550, originalPrice: 675, rating: 4.8, reviews: 140, bestseller: true, emoji: "🧀", desc: "Blending sautéed tomatoes, onions, and cashews into a smooth paste, simmering with spices and kasuri methi and finishing with cream and butter.", img: "photos/paneerbuttermasala.png" },
+      { id: 305, name: "Palak Paneer", category: "Main Course", type: "veg", cuisine: "indian", price: 499, originalPrice: 620, rating: 4.7, reviews: 120, bestseller: false, emoji: "🥬", desc: "Spicy Punjabi palak paneer recipe with shallow fried paneer cubes in a healthy spinach gravy, sautéed with curry spices in aromatic ghee.", img: "photos/palakpaneer.png" },
+      { id: 306, name: "Matar Mushroom Masala", category: "Main Course", type: "veg", cuisine: "indian", price: 499, originalPrice: 620, rating: 4.6, reviews: 100, bestseller: false, emoji: "🍄", desc: "Matar Mushroom is a one pot curried side dish made with mushrooms, green peas, onions, tomatoes, spices and herbs.", img: "photos/matarmushroommasala.png" },
+      { id: 307, name: "Khumb Hara Pyaz Bhujia", category: "Main Course", type: "veg", cuisine: "indian", price: 399, originalPrice: 499, rating: 4.5, reviews: 90, bestseller: false, emoji: "🍄", desc: "Spring Onion & Mushroom Curry; How many ways are there to curry a mushroom.", img: "photos/khumbharapyaaz.png" },
+      { id: 308, name: "Malai Kofta", category: "Main Course", type: "veg", cuisine: "indian", price: 399, originalPrice: 499, rating: 4.8, reviews: 110, bestseller: true, emoji: "🥔", desc: "Soft dough with paneer/potatoes, nuts, fried till golden, and simmered in a smooth blended sauce.", img: "photos/malaikofta.png" },
+      { id: 309, name: "Aloo Gobhi", category: "Main Course", type: "veg", cuisine: "indian", price: 299, originalPrice: 399, rating: 4.6, reviews: 100, bestseller: false, emoji: "🥔", desc: "Stir-frying the vegetables in cumin-tempered oil, followed by slow-cooking with onions, tomatoes, and dry spices like turmeric and garam masala until tender.", img: "photos/aloo gobhi.png" },
+      { id: 310, name: "Mix Vegetable", category: "Main Course", type: "veg", cuisine: "indian", price: 349, originalPrice: 449, rating: 4.5, reviews: 90, bestseller: false, emoji: "🥕", desc: "Cauliflower, carrots, beans, peas, and potatoes in a spiced, onion-tomato masala.", img: "photos/mixvegetable.png" },
+      { id: 311, name: "Aloo Jeera", category: "Main Course", type: "veg", cuisine: "indian", price: 249, originalPrice: 349, rating: 4.5, reviews: 80, bestseller: false, emoji: "🥔", desc: "Sautéing boiled potatoes in oil/ghee with cumin seeds, green chilies, and basic spices like turmeric and dry mango powder.", img: "photos/aloojeera.png" },
+      { id: 312, name: "Dal Makhani", category: "Main Course", type: "veg", cuisine: "indian", price: 370, originalPrice: 470, rating: 4.8, reviews: 120, bestseller: true, emoji: "🥣", desc: "Slow-cooking black urad dal and rajma with butter, cream, and aromatic spices.", img: "photos/daalmakhani.png" },
+      { id: 313, name: "Dal Tadka", category: "Main Course", type: "veg", cuisine: "indian", price: 299, originalPrice: 399, rating: 4.7, reviews: 110, bestseller: false, emoji: "🥣", desc: "Dal tadka with aromatics like onions, garlic, ginger, turmeric and tomatoes, finished with a tempering of spices and herbs in ghee or oil.", img: "photos/daltadka.png" },
+
+      // Indian Main Course - Non Veg
+      { id: 401, name: "Chicken Tikka Masala", category: "Main Course", type: "nonveg", cuisine: "indian", price: 560, originalPrice: 699, rating: 4.8, reviews: 140, bestseller: true, emoji: "🍗", desc: "Marinated yogurt-based chicken, seared for a smoky flavor and simmered in a creamy, spiced tomato sauce.", img: "photos/chickentikkamasala.png" },
+      { id: 402, name: "Butter Chicken", category: "Main Course", type: "nonveg", cuisine: "indian", price: 575, originalPrice: 720, rating: 4.9, reviews: 150, bestseller: true, emoji: "🍗", desc: "Marinating chicken in yogurt and spices, pan-searing or roasting it, and blending the creamy tomato-cashew sauce before finishing with kasuri methi.", img: "photos/butterchicken.png" },
+      { id: 403, name: "Kadhai Chicken", category: "Main Course", type: "nonveg", cuisine: "indian", price: 560, originalPrice: 699, rating: 4.7, reviews: 120, bestseller: false, emoji: "🍗", desc: "Dry-roasting coriander seeds, cumin, and dried red chilies for a fresh spice mix, then cooking chicken with onion-tomato gravy, bell peppers, and finishing with Kasuri Methi.", img: "photos/kadhaichicken.png" },
+      { id: 404, name: "Chicken Rogan Josh", category: "Main Course", type: "nonveg", cuisine: "indian", price: 575, originalPrice: 720, rating: 4.8, reviews: 110, bestseller: true, emoji: "🍗", desc: "Tender chicken simmered in a rich, yogurt-based gravy infused with aromatic spices like fennel and Kashmiri red chili powder.", img: "photos/chickenroganjosh.png" },
+      { id: 405, name: "Rara Chicken", category: "Main Course", type: "nonveg", cuisine: "indian", price: 560, originalPrice: 699, rating: 4.7, reviews: 100, bestseller: false, emoji: "🍗", desc: "Bhunna-style chicken with onions, tomatoes, ginger-garlic, and spices, finished with garam masala and kasoori methi.", img: "photos/rarachicken.png" },
+      { id: 406, name: "Chicken Do Pyaza", category: "Main Course", type: "nonveg", cuisine: "indian", price: 560, originalPrice: 699, rating: 4.6, reviews: 90, bestseller: false, emoji: "🍗", desc: "North Indian curry with twice the amount of onions—sliced and petal-cut—simmered with yogurt and spices.", img: "photos/chickendopyaza.png" },
+      { id: 407, name: "Chicken Curry", category: "Main Course", type: "nonveg", cuisine: "indian", price: 575, originalPrice: 720, rating: 4.7, reviews: 110, bestseller: false, emoji: "🍗", desc: "Onions, ginger-garlic paste, and tomatoes, cooked with chicken in a blend of spices like turmeric, chili powder, and garam masala.", img: "photos/chickencurry.png" },
+      { id: 408, name: "Chicken Tawa Masala", category: "Main Course", type: "nonveg", cuisine: "indian", price: 560, originalPrice: 699, rating: 4.8, reviews: 120, bestseller: true, emoji: "🍗", desc: "Boneless chicken, marinated with yogurt and spices, then pan-fried with onions, tomatoes, and ginger for a dry, flavourful coating.", img: "photos/chickentawamasala.png" },
+      { id: 409, name: "Madras Chicken", category: "Main Course", type: "nonveg", cuisine: "indian", price: 575, originalPrice: 720, rating: 4.7, reviews: 100, bestseller: false, emoji: "🍗", desc: "Madras curry powder, tamarind paste, ginger-garlic paste, curry leaves, and coconut milk, cooked in oil and garnished with fresh coriander.", img: "photos/madraschicken.png" },
+      { id: 410, name: "Chicken Korma", category: "Main Course", type: "nonveg", cuisine: "indian", price: 575, originalPrice: 720, rating: 4.8, reviews: 110, bestseller: true, emoji: "🍗", desc: "Chicken in yogurt, slow-cooked with fried onions, aromatic spices, and a cashew/almond paste for a rich, velvety gravy.", img: "photos/chickenkorma.png" },
+      { id: 411, name: "Chicken Green Masala", category: "Main Course", type: "nonveg", cuisine: "indian", price: 560, originalPrice: 699, rating: 4.7, reviews: 100, bestseller: false, emoji: "🍗", desc: "Chicken in a blended paste of fresh coriander, spinach, mint, green chilies, and yogurt.", img: "photos/chickengreenmasala.png" },
+      { id: 412, name: "Mutton Rogan Josh", category: "Main Course", type: "nonveg", cuisine: "indian", price: 699, originalPrice: 849, rating: 4.8, reviews: 120, bestseller: true, emoji: "🥩", desc: "Kashmiri mutton braised in a yogurt-based sauce with aromatic spices like fennel and Kashmiri red chili.", img: "photos/chickenroganjosh.png" },
+      { id: 413, name: "Kadhai Gosht", category: "Main Course", type: "nonveg", cuisine: "indian", price: 799, originalPrice: 949, rating: 4.7, reviews: 110, bestseller: false, emoji: "🥩", desc: "Mutton slow-cooked in a wok (kadhai) with tomatoes, yogurt, ginger, garlic, and coarse spices.", img: "photos/kadhaigosht.png" },
+      { id: 414, name: "Lamb Handi", category: "Main Course", type: "nonveg", cuisine: "indian", price: 899, originalPrice: 1049, rating: 4.8, reviews: 120, bestseller: true, emoji: "🥩", desc: "Lamb simmered in yogurt, cream, and aromatic spices.", img: "photos/lambhandi.png" },
+      { id: 415, name: "Lamb Jalfrezi", category: "Main Course", type: "nonveg", cuisine: "indian", price: 799, originalPrice: 949, rating: 4.7, reviews: 110, bestseller: false, emoji: "🥩", desc: "Diced lamb in a spicy tomato-based sauce with stir-fried onions, peppers, and green chilies.", img: "photos/lambjalfrezi.png" },
+      { id: 416, name: "Lamb Palak", category: "Main Course", type: "nonveg", cuisine: "indian", price: 799, originalPrice: 949, rating: 4.7, reviews: 110, bestseller: false, emoji: "🥩", desc: "Lamb in a spiced onion-tomato masala, simmered with pureed spinach and aromatic spices.", img: "photos/lambpalak.png" },
+      { id: 417, name: "Lamb Vindaloo", category: "Main Course", type: "nonveg", cuisine: "indian", price: 799, originalPrice: 949, rating: 4.7, reviews: 110, bestseller: false, emoji: "🥩", desc: "Lamb marinated in a paste of dried Kashmiri chilies, spices, and vinegar, then slow-cooked until tender.", img: "photos/lambvindaloo.png" },
+
+      // Chinese Main Course
+      // Rice
+      { id: 450, name: "Fried Rice", category: "Main Course", type: "veg", cuisine: "chinese", price: 299, originalPrice: 350, rating: 4.5, reviews: 290, bestseller: true, emoji: "🍚", desc: "Classic wok-tossed rice with vegetables", img: "photos/friedrice.png" },
+      { id: 451, name: "Chicken Fried Rice", category: "Main Course", type: "nonveg", cuisine: "chinese", price: 349, originalPrice: 400, rating: 4.6, reviews: 310, bestseller: true, emoji: "🍚", desc: "Classic wok-tossed rice with chicken", img: "photos/chickenfriedrice.png" },
+      { id: 452, name: "Chilli Garlic Fried Rice", category: "Main Course", type: "veg", cuisine: "chinese", price: 325, originalPrice: 380, rating: 4.5, reviews: 140, bestseller: false, emoji: "🍚", desc: "Fragrant fried rice packed with garlic and chili", img: "photos/chilligarlicriceveg.png" },
+      { id: 453, name: "ChickenChilli Garlic Fried Rice", category: "Main Course", type: "nonveg", cuisine: "chinese", price: 375, originalPrice: 440, rating: 4.6, reviews: 180, bestseller: false, emoji: "🍚", desc: "Fragrant fried rice packed with garlic, chili and chicken", img: "photos/chilligarlicricechicken.png" },
+      { id: 454, name: "Paneer Fried Rice", category: "Main Course", type: "veg", cuisine: "chinese", price: 345, originalPrice: 400, rating: 4.7, reviews: 210, bestseller: true, emoji: "🍚", desc: "Flavourful fried rice mixed with paneer cubes", img: "photos/paneerfriedrice.png" },
+
+      // Noodles
+      { id: 455, name: "Butter Garlic Noodles ", category: "Main Course", type: "veg", cuisine: "chinese", price: 375, originalPrice: 430, rating: 4.6, reviews: 250, bestseller: true, emoji: "🍜", desc: "Soft noodles tossed in garlic butter", img: "photos/25.png" },
+      { id: 456, name: "Chicken Butter Garlic Noodles", category: "Main Course", type: "nonveg", cuisine: "chinese", price: 425, originalPrice: 490, rating: 4.7, reviews: 290, bestseller: true, emoji: "🍜", desc: "Soft noodles tossed in garlic butter with chicken", img: "photos/buttergarlicnoodleschicken.png" },
+      { id: 457, name: "Singapore Noodles", category: "Main Course", type: "veg", cuisine: "chinese", price: 375, originalPrice: 430, rating: 4.5, reviews: 160, bestseller: false, emoji: "🍜", desc: "Thin noodles stir-fried with vegetables in curry powder", img: "photos/singapurinoodles.png" },
+      { id: 458, name: "Korean Hot Sauce Noodles ", category: "Main Course", type: "veg", cuisine: "chinese", price: 399, originalPrice: 460, rating: 4.6, reviews: 200, bestseller: false, emoji: "🍜", desc: "Spicy Korean-style noodles coated in hot sauce", img: "photos/koreannoodlesveg.png" },
+      { id: 459, name: "Korean Hot Sauce Chicken Noodles ", category: "Main Course", type: "nonveg", cuisine: "chinese", price: 449, originalPrice: 520, rating: 4.7, reviews: 220, bestseller: false, emoji: "🍜", desc: "Spicy Korean-style noodles coated in hot sauce with chicken", img: "photos/koreannoodlesnonveg.png" },
+
+      // Asian Main
+      { id: 460, name: "Exotic Veg in Hot Garlic Sauce with Paneer Fried Rice", category: "Main Course", type: "veg", cuisine: "chinese", price: 299, originalPrice: 350, rating: 4.8, reviews: 320, bestseller: true, emoji: "🍛", desc: "Mixed exotic vegetables tossed in hot garlic sauce, served with paneer fried rice", img: "photos/exoticvegcombo.png" }
+    ];
+
+    let activeFilter = "all";
+    let searchQuery = "";
+    let cart = {};
+
+    function getFiltered() {
+      return menuData.filter(item => {
+        const matchSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) || item.desc.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchFilter = activeFilter === "all" ||
+          (activeFilter === "veg" && item.type === "veg") ||
+          (activeFilter === "nonveg" && item.type === "nonveg") ||
+          (activeFilter === "bestseller" && item.bestseller) ||
+          (activeFilter === "indian" && item.cuisine === "indian") ||
+          (activeFilter === "chinese" && item.cuisine === "chinese") ||
+          (activeFilter === "continental" && item.cuisine === "continental") ||
+          (activeFilter === "breads" && item.category === "Breads") ||
+          (activeFilter === "rice" && item.category === "Rice");
+        return matchSearch && matchFilter;
+      });
+    }
+
+    function renderItems() {
+      const grid = document.getElementById('items-grid');
+      const filtered = getFiltered();
+
+      if (filtered.length === 0) {
+        document.getElementById('no-results').classList.remove('hidden');
+        grid.innerHTML = '';
+        return;
+      }
+
+      document.getElementById('no-results').classList.add('hidden');
+
+      // Group items by cuisine and type
+      const groups = {};
+      filtered.forEach(item => {
+        let key = "";
+        // Special case for Breads and Rice to avoid redundant names
+        if (item.category === "Breads" || item.category === "Rice") {
+          key = item.category;
+        } else {
+          const cuisineStr = item.cuisine.charAt(0).toUpperCase() + item.cuisine.slice(1);
+          const typeStr = item.type === 'veg' ? 'Veg' : 'Non-Veg';
+          key = `${cuisineStr} ${typeStr} Main Course`;
+        }
+        if (!groups[key]) {
+          groups[key] = [];
+        }
+        groups[key].push(item);
+      });
+
+      let html = '';
+      for (const groupName in groups) {
+        html += `<div class="col-span-full mt-2 mb-2"><h2 class="text-lg font-extrabold text-[#81063a] border-b-2 border-[#81063a] border-opacity-30 pb-1">${groupName}</h2></div>`;
+        html += groups[groupName].map(item => `
+    <div class="menu-item" style="border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+      <div style="width:100%;height:150px;overflow:hidden;position:relative;">
+        <img src="${item.img}" alt="${item.name}" style="width:100%;height:100%;object-fit:cover;" />
+        ${item.bestseller ? `<span style="position:absolute;top:8px;left:8px;background:#81063a;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;">🔥 Bestseller</span>` : ''}
+        <span style="position:absolute;top:8px;right:8px;background:${item.type==='veg'?'#16a34a':'#dc2626'};color:#fff;font-size:9px;font-weight:700;padding:2px 6px;border-radius:99px;">${item.type.toUpperCase()}</span>
+      </div>
+      <div class="p-3">
+        <h3 class="font-bold text-sm leading-snug mb-1">${item.name}</h3>
+        <p class="text-xs opacity-55 mb-2 line-clamp-2">${item.desc}</p>
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center gap-2">
+            ${item.originalPrice > item.price ? `<span class="text-xs opacity-50 line-through">₹${item.originalPrice}</span>` : ''}
+            <span class="font-bold text-base" style="color:#81063a;">₹${item.price}</span>
+          </div>
+          <div class="flex items-center gap-1 text-xs" style="color:#f59e0b;">★ <span style="color:#555;">${item.rating}</span></div>
+        </div>
+        <div class="text-center" id="action-btn-${item.id}">
+          ${cart[item.id] && cart[item.id].qty > 0 ? `
+            <div class="flex items-center justify-center gap-4">
+              <button onclick="removeFromCart(${item.id})" class="bg-[#81063a] text-white w-8 h-8 rounded-full font-bold hover:bg-[#a81a54] transition-colors">-</button>
+              <span class="font-bold w-4">${cart[item.id].qty}</span>
+              <button onclick="addToCart(${item.id})" class="bg-[#81063a] text-white w-8 h-8 rounded-full font-bold hover:bg-[#a81a54] transition-colors">+</button>
+            </div>
+          ` : `
+            <button onclick="addToCart(${item.id})" class="add-btn w-full bg-[#81063a] text-white font-bold text-sm py-2 rounded-full transition-colors hover:bg-[#a81a54]">Add to Cart</button>
+          `}
+        </div>
+      </div>
+    </div>
+  `).join('');
+      }
+
+      grid.innerHTML = html;
+      lucide.createIcons();
+    }
+
+    function setFilter(filter) {
+      activeFilter = filter;
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('filter-' + filter).classList.add('active');
+      renderItems();
+    }
+
+    function filterItems(query) {
+      searchQuery = query;
+      renderItems();
+    }
+
+    function updateItemCardUI(id) {
+      const actionDiv = document.getElementById(`action-btn-${id}`);
+      if (!actionDiv) return;
+      if (cart[id] && cart[id].qty > 0) {
+        actionDiv.innerHTML = `<div class="flex items-center justify-center gap-4"><button onclick="removeFromCart(${id})" class="bg-[#81063a] text-white w-8 h-8 rounded-full font-bold">-</button><span class="font-bold w-4">${cart[id].qty}</span><button onclick="addToCart(${id})" class="bg-[#81063a] text-white w-8 h-8 rounded-full font-bold">+</button></div>`;
+      } else {
+        actionDiv.innerHTML = `<button onclick="addToCart(${id})" class="add-btn w-full bg-[#81063a] text-white font-bold text-sm py-2 rounded-full transition-colors hover:bg-[#a81a54]">Add to Cart</button>`;
+      }
+    }
+
+    function addToCart(id) {
+      if (!cart[id]) {
+        const item = menuData.find(i => i.id === id);
+        if (!item) return;
+        cart[id] = { ...item, qty: 0 };
+      }
+      cart[id].qty++;
+      localStorage.setItem('fnf_cart', JSON.stringify(cart));
+      updateCartUI();
+      updateItemCardUI(id);
+    }
+
+    function removeFromCart(id) {
+      if (cart[id]) {
+        cart[id].qty--;
+        if (cart[id].qty <= 0) delete cart[id];
+        localStorage.setItem('fnf_cart', JSON.stringify(cart));
+        updateCartUI();
+        updateItemCardUI(id);
+      }
+    }
+
+    function updateCartUI() {
+      const items = Object.values(cart);
+      const count = items.reduce((s, i) => s + i.qty, 0);
+      const subtotal = items.reduce((s, i) => s + i.price * i.qty, 0);
+      const delivery = subtotal >= 199 ? 0 : 49;
+      const total = subtotal + delivery;
+
+      const countEl = document.getElementById('cart-count');
+      countEl.textContent = count;
+      if (count > 0) { countEl.classList.remove('hidden'); countEl.classList.add('cart-bounce'); setTimeout(() => countEl.classList.remove('cart-bounce'), 300); }
+      else countEl.classList.add('hidden');
+
+      const cartItemsEl = document.getElementById('cart-items');
+      const cartEmpty = document.getElementById('cart-empty');
+      const cartFooter = document.getElementById('cart-footer');
+
+      if (items.length === 0) {
+        cartItemsEl.innerHTML = '';
+        cartEmpty.classList.remove('hidden');
+        cartFooter.classList.add('hidden');
+      } else {
+        cartEmpty.classList.add('hidden');
+        cartFooter.classList.remove('hidden');
+        cartItemsEl.innerHTML = '';
+        items.forEach(item => {
+          const div = document.createElement('div');
+          div.className = 'flex items-center gap-3 bg-gray-50 rounded-lg p-2';
+          div.innerHTML = `
+        <span class="text-2xl">${item.emoji}</span>
+        <div class="flex-1 min-w-0">
+          <p class="font-bold text-sm text-gray-800 truncate">${item.name}</p>
+          <p class="text-xs font-bold" style="color:#81063a;">₹${item.price} each</p>
+        </div>
+        <div class="flex items-center gap-1 bg-[#81063a] rounded-full px-2 py-0.5">
+          <button onclick="removeFromCart(${item.id})" class="text-white font-black text-sm w-4 h-4 flex items-center justify-center">-</button>
+          <span class="text-white font-black text-sm">${item.qty}</span>
+          <button onclick="addToCart(${item.id})" class="text-white font-black text-sm w-4 h-4 flex items-center justify-center">+</button>
+        </div>
+        <span class="font-black text-sm text-gray-800 w-12 text-right">₹${item.price * item.qty}</span>`;
+          cartItemsEl.appendChild(div);
+        });
+      }
+
+      document.getElementById('cart-subtotal').textContent = `₹${subtotal}`;
+      document.getElementById('cart-delivery').textContent = delivery === 0 ? 'FREE' : `₹${delivery}`;
+      document.getElementById('cart-total').textContent = `₹${total}`;
+    }
+
+    function toggleCart() {
+      const drawer = document.getElementById('cart-drawer');
+      const overlay = document.getElementById('cart-overlay');
+      const isOpen = !drawer.classList.contains('translate-x-full');
+      if (isOpen) {
+        drawer.classList.add('translate-x-full');
+        overlay.classList.add('hidden');
+      } else {
+        drawer.classList.remove('translate-x-full');
+        overlay.classList.remove('hidden');
+      }
+    }
+
+    function filterByCuisine(cuisine) {
+      activeFilter = cuisine;
+      renderItems();
+    }
+
+    // Initialize
+    renderItems();
+  </script>
+</body>
+
+</html>

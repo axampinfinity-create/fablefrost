@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="en" class="h-full">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery - Fable &amp; Frost</title>
+  <meta name="description" content="A visual feast — explore every dish, drink and dessert at Fable & Frost.">
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=Poppins:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    h2 {
+      color: #81063a !important;
+    }
+
+    :root {
+      --bg: #fdf8f3;
+      --surface: #ffffff;
+      --text: #1a1a2e;
+      --accent: #81063a;
+      --warm: #e8a045;
+    }
+
+    * {
+      font-family: 'DM Sans', sans-serif;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .playfair {
+      font-family: 'Poppins', serif;
+    }
+
+    .page-heading {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+    }
+
+    .section-accent {
+      width: 48px;
+      height: 3px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--warm));
+      margin: 8px 0 20px;
+    }
+
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #81063a;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 8px 0;
+      transition: gap 0.2s;
+      text-decoration: none;
+    }
+
+    .back-btn:hover {
+      gap: 10px;
+    }
+
+    /* Filter buttons */
+    .filter-btn {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 99px;
+      border: 2px solid #e2e8f0;
+      color: #64748b;
+      background: #fff;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .filter-btn.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .filter-btn:hover:not(.active) {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* Masonry grid */
+    .gallery-grid {
+      columns: 3;
+      column-gap: 12px;
+    }
+
+    @media(max-width:700px) {
+      .gallery-grid {
+        columns: 2;
+        column-gap: 10px;
+      }
+    }
+
+    @media(max-width:380px) {
+      .gallery-grid {
+        columns: 1;
+      }
+    }
+
+    .g-item {
+      break-inside: avoid;
+      margin-bottom: 12px;
+      border-radius: 14px;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      display: block;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      transition: transform 0.25s, box-shadow 0.25s;
+      animation: fadeUp 0.45s ease both;
+    }
+
+    .g-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(129, 6, 58, 0.18);
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(18px)
+      }
+
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    .g-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    .g-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.72) 0%, transparent 100%);
+      padding: 22px 12px 10px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .g-item:hover .g-overlay {
+      opacity: 1;
+    }
+
+    .g-overlay span {
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .g-cat {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 99px;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(0, 0, 0, 0.90);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lb-inner {
+      position: relative;
+      max-width: 680px;
+      width: 100%;
+    }
+
+    .lb-img {
+      width: 100%;
+      max-height: 78vh;
+      object-fit: contain;
+      border-radius: 16px;
+      animation: lbIn 0.22s ease;
+    }
+
+    @keyframes lbIn {
+      from {
+        opacity: 0;
+        transform: scale(0.93)
+      }
+
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    .lb-caption {
+      text-align: center;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      margin-top: 12px;
+    }
+
+    .lb-close {
+      position: absolute;
+      top: -44px;
+      right: 0;
+      background: rgba(255, 255, 255, 0.15);
+      border: none;
+      color: #fff;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+      font-family: inherit;
+    }
+
+    .lb-close:hover {
+      background: var(--accent);
+    }
+
+    .lb-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.15);
+      border: none;
+      color: #fff;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+      font-family: inherit;
+    }
+
+    .lb-nav:hover {
+      background: var(--accent);
+    }
+
+    .lb-prev {
+      left: -52px;
+    }
+
+    .lb-next {
+      right: -52px;
+    }
+
+    @media(max-width:700px) {
+      .lb-prev {
+        left: -4px;
+      }
+
+      .lb-next {
+        right: -4px;
+      }
+    }
+  </style>
+</head>
+
+<body class="h-full">
+
+  <!-- ── HEADER (same as cafe/starters) ── -->
+  <header id="main-header" class="sticky top-0 z-50 shadow-md"
+    style="background:#ffe7c4; backdrop-filter:blur(12px); border-bottom:1px solid rgba(192,57,43,0.12);">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center gap-4">
+      <a href="fable.html" class="back-btn">
+        <i data-lucide="arrow-left" style="width:18px;height:18px;color:#81063a;"></i>
+        Back to Menu
+      </a>
+      <!-- Search -->
+      <div class="flex-1 max-w-sm relative">
+        <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400"></i>
+        <input id="search-input" type="text" placeholder="Search gallery..."
+          class="w-full rounded-full px-10 py-2 text-sm outline-none text-gray-800 font-semibold"
+          oninput="handleSearch(this.value)" />
+      </div>
+      <!-- Title -->
+      <div class="flex flex-col items-end gap-1 flex-shrink-0">
+        <h1 class="playfair text-xl md:text-2xl font-bold" style="color:#81063a;">📸 Gallery</h1>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── MAIN ── -->
+  <main class="max-w-5xl mx-auto px-4 py-4 pb-20">
+
+    <!-- Section header -->
+    <div class="mb-1">
+      <h2 class="page-heading text-2xl font-bold">Our Gallery</h2>
+    </div>
+    <div class="section-accent"></div>
+    <p class="text-sm opacity-50 mb-4">A visual journey through every dish, drink &amp; dessert we're proud of</p>
+
+    <!-- Filter bar -->
+    <div class="flex gap-2 mb-5 overflow-x-auto pb-1" style="scrollbar-width:none;">
+      <button class="filter-btn active" id="f-all" onclick="setFilter('all')">🍽️ All</button>
+    </div>
+
+    <!-- Grid -->
+    <div class="gallery-grid" id="gallery-grid"></div>
+    <div id="no-items" class="hidden text-center py-16 text-gray-400 font-semibold">
+      No photos found 📷
+    </div>
+  </main>
+
+  <!-- ── LIGHTBOX ── -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+    <div class="lb-inner">
+      <button class="lb-close" onclick="closeLightbox()">✕</button>
+      <button class="lb-nav lb-prev" onclick="navLightbox(-1)">‹</button>
+      <button class="lb-nav lb-next" onclick="navLightbox(1)">›</button>
+      <img class="lb-img" id="lb-img" src="" alt="" />
+      <div class="lb-caption" id="lb-caption"></div>
+    </div>
+  </div>
+
+  <script>
+    const catLabels = { ambience: 'Ambience' };
+
+    const photos = [
+      //Ambience
+      { src: 'photos/001.webp', name: 'Ambience', cat: 'ambience' },
+      { src: 'photos/002.webp', name: 'Ambience', cat: 'ambience' },
+      { src: 'photos/003.webp', name: 'Ambience', cat: 'ambience' },
+      { src: 'photos/004.webp', name: 'Ambience', cat: 'ambience' },
+      { src: 'photos/005.webp', name: 'Ambience', cat: 'ambience' },
+      { src: 'photos/011.jpeg', name: 'Ambience', cat: 'ambience' },
+      { src: 'photos/012.jpeg', name: 'Ambience', cat: 'ambience' },
+      { src: 'photos/013.jpeg', name: 'Ambience', cat: 'ambience' },
+      { src: 'photos/014.jpeg', name: 'Ambience', cat: 'ambience' },
+      { src: 'photos/015.jpeg', name: 'Ambience', cat: 'ambience' },
+      { src: 'photos/016.jpeg', name: 'Ambience', cat: 'ambience' },
+      { src: 'photos/017.jpeg', name: 'Ambience', cat: 'ambience' },
+      { src: 'photos/018.jpeg', name: 'Ambience', cat: 'ambience' },
+      { src: 'photos/019.jpeg', name: 'Ambience', cat: 'ambience' },
+      { src: 'photos/020.jpeg', name: 'Ambience', cat: 'ambience' },
+      { src: 'photos/021.jpeg', name: 'Ambience', cat: 'ambience' },
+      { src: 'photos/022.jpeg', name: 'Ambience', cat: 'ambience' },
+      { src: 'photos/023.jpeg', name: 'Ambience', cat: 'ambience' },
+    ];
+
+    let activeFilter = 'all';
+    let searchQuery = '';
+    let filteredPhotos = [];
+    let currentIndex = 0;
+
+    function getFiltered() {
+      return photos.filter(p => {
+        const matchCat = activeFilter === 'all' || p.cat === activeFilter;
+        const matchSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchCat && matchSearch;
+      });
+    }
+
+    function setFilter(cat) {
+      activeFilter = cat;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('f-' + cat).classList.add('active');
+      renderGallery();
+    }
+
+    function handleSearch(q) {
+      searchQuery = q;
+      renderGallery();
+    }
+
+    function renderGallery() {
+      filteredPhotos = getFiltered();
+      const grid = document.getElementById('gallery-grid');
+      const noItems = document.getElementById('no-items');
+
+      if (filteredPhotos.length === 0) {
+        grid.innerHTML = '';
+        noItems.classList.remove('hidden');
+        return;
+      }
+      noItems.classList.add('hidden');
+
+      grid.innerHTML = filteredPhotos.map((p, i) => `
+        <div class="g-item" style="animation-delay:${i * 0.035}s" onclick="openLightbox(${i})">
+          <img src="${p.src}" alt="${p.name}" loading="lazy" />
+          <span class="g-cat">${catLabels[p.cat]}</span>
+          <div class="g-overlay"><span>${p.name}</span></div>
+        </div>
+      `).join('');
+
+      lucide.createIcons();
+    }
+
+    function openLightbox(idx) {
+      currentIndex = idx;
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      updateLightbox();
+    }
+
+    function updateLightbox() {
+      const p = filteredPhotos[currentIndex];
+      document.getElementById('lb-img').src = p.src;
+      document.getElementById('lb-img').alt = p.name;
+      document.getElementById('lb-caption').textContent = p.name;
+    }
+
+    function navLightbox(dir) {
+      currentIndex = (currentIndex + dir + filteredPhotos.length) % filteredPhotos.length;
+      updateLightbox();
+    }
+
+    function closeLightbox(e) {
+      if (!e || e.target.id === 'lightbox') {
+        document.getElementById('lightbox').classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    }
+
+    document.addEventListener('keydown', e => {
+      if (!document.getElementById('lightbox').classList.contains('open')) return;
+      if (e.key === 'ArrowLeft') navLightbox(-1);
+      if (e.key === 'ArrowRight') navLightbox(1);
+      if (e.key === 'Escape') closeLightbox({ target: { id: 'lightbox' } });
+    });
+
+    lucide.createIcons();
+    renderGallery();
+  </script>
+</body>
+
+</html>

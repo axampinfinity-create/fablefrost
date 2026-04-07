@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="en" class="h-full">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Desserts Menu - Fable & Frost</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&amp;display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="category icon" href="\photos\category-icon.png">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&amp;family=DM+Sans:wght@300;400;500;600&amp;family=Poppins:wght@400;500;600;700&amp;display=swap"
+    rel="stylesheet">
+  <style>
+    h2 {
+      color: #81063a !important;
+    }
+
+    :root {
+      --bg: #fdf8f3;
+      --surface: #ffffff;
+      --text: #1a1a2e;
+      --accent: #81063a;
+      --warm: #e8a045;
+    }
+
+    * {
+      font-family: 'DM Sans', sans-serif;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .playfair {
+      font-family: 'Poppins', serif;
+    }
+
+    .page-heading {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+    }
+
+    .flipkart-blue {
+      background: #db5d5d;
+    }
+
+    .card-shadow {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    }
+
+    .badge-veg::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #0f8a65;
+      border-radius: 50%;
+      margin-right: 4px;
+    }
+
+    .badge-nonveg::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #d32f2f;
+      border-radius: 50%;
+      margin-right: 4px;
+    }
+
+    .menu-item:hover {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .menu-item {
+      transition: all 0.2s ease;
+      background: var(--surface);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    .add-btn {
+      transition: all 0.15s;
+      background: #81063a;
+      color: white;
+    }
+
+    .add-btn:hover {
+      background: #a81a54;
+    }
+
+    .cart-bounce {
+      animation: cartPop 0.3s ease;
+    }
+
+    @keyframes cartPop {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.3);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .category-tab.active {
+      border-bottom: 3px solid #2874f0;
+      color: #2874f0;
+      font-weight: 800;
+    }
+
+    .category-tab {
+      border-bottom: 3px solid transparent;
+    }
+
+    .star {
+      color: #ff9f00;
+    }
+
+    .offer-badge {
+      background: linear-gradient(135deg, #ff6600, #ff3d00);
+    }
+
+    .hero-gradient {
+      background: linear-gradient(135deg, #1a237e 0%, #2874f0 60%, #42a5f5 100%);
+    }
+
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 8px 0;
+      transition: gap 0.2s;
+      text-decoration: none;
+    }
+
+    .back-btn:hover {
+      gap: 10px;
+    }
+
+    .section-accent {
+      width: 48px;
+      height: 3px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--warm));
+      margin: 8px 0 20px;
+    }
+
+    .cuisine-icon-btn {
+      border: none;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .cuisine-icon-circle {
+      transition: all 0.3s ease;
+    }
+
+    .cuisine-icon-btn:hover .cuisine-icon-circle {
+      transform: scale(1.1);
+    }
+
+    .filter-btn.active {
+      background: #dbeafe;
+      border-color: #3b82f6;
+      color: #1d4ed8;
+    }
+  </style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+</head>
+
+<body class="h-full">
+  <!-- HEADER -->
+  <header id="main-header" class="sticky top-0 z-50 shadow-md"
+    style="background: #ffe7c4; backdrop-filter: blur(12px); border-bottom: 1px solid rgba(192, 57, 43, 0.12);">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center gap-4">
+      <a href="fable.html" class="back-btn" style="color:#81063a">
+        <i data-lucide="arrow-left" style="width:18px;height:18px; color:#81063a"></i> Back to Menu
+      </a>
+      <div class="flex-1 max-w-sm relative">
+        <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400"></i>
+        <input id="search-input" type="text" placeholder="Search desserts..."
+          class="w-full rounded-full px-10 py-2 text-sm outline-none text-gray-800 font-semibold"
+          oninput="filterItems(this.value)">
+      </div><!-- Cart Button -->
+      <button onclick="toggleCart()"
+        class="relative flex items-center justify-center w-10 h-10 rounded-full transition-all hover:opacity-80"
+        style="background-color: rgba(219, 93, 93, 0.15);">
+        <i data-lucide="shopping-cart" class="w-5 h-5" style="color:#81063a;"></i>
+        <span id="cart-count"
+          class="absolute -top-1 -right-1 bg-[#81063a] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center hidden">0</span>
+      </button><!-- Right Side: Name -->
+      <div class="flex flex-col items-end gap-1 flex-shrink-0">
+        <h1 class="playfair text-xl md:text-2xl font-bold" style="color:#81063a;">🍰 Desserts</h1>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="max-w-6xl mx-auto px-4 py-4">
+
+    <!-- FILTER ROW -->
+    <div class="flex gap-2 mb-3 flex-wrap">
+      <button onclick="setFilter('all')" id="filter-all"
+        class="filter-btn active text-xs font-bold px-3 py-1.5 rounded-full border-2 border-blue-500 text-blue-600 bg-blue-50">All</button>
+      <button onclick="setFilter('bestseller')" id="filter-bestseller"
+        class="filter-btn text-xs font-bold px-3 py-1.5 rounded-full border-2 border-gray-200 text-gray-600 hover:border-[#81063a] hover:text-[#81063a]">🔥
+        Bestseller</button>
+    </div>
+
+    <!-- ITEMS GRID -->
+    <div id="items-grid" class="grid grid-cols-2 gap-4"></div>
+    <div id="no-results" class="hidden text-center py-16 text-gray-400 font-semibold">
+      No items found 😢
+    </div>
+  </main>
+
+  <!-- Cart Drawer -->
+  <div id="cart-overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden z-40" onclick="toggleCart()"></div>
+  <div id="cart-drawer"
+    class="fixed top-0 right-0 h-full w-80 bg-white shadow-xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col">
+    <div class="flex items-center justify-between p-4 border-b">
+      <h2 class="text-lg font-bold">Your Cart</h2>
+      <button onclick="toggleCart()" class="text-gray-500 hover:text-gray-700">
+        <i data-lucide="x" class="w-6 h-6"></i>
+      </button>
+    </div>
+    <div id="cart-empty" class="flex-1 flex items-center justify-center text-gray-500">
+      <div class="text-center">
+        <i data-lucide="shopping-cart" class="w-12 h-12 mx-auto mb-2 opacity-50"></i>
+        <p>Your cart is empty</p>
+      </div>
+    </div>
+    <div id="cart-items" class="flex-1 overflow-y-auto p-4 space-y-2"></div>
+    <div id="cart-footer" class="border-t p-4 hidden">
+      <div class="space-y-2 mb-4">
+        <div class="flex justify-between text-sm">
+          <span>Subtotal</span>
+          <span id="cart-subtotal">₹0</span>
+        </div>
+        <div class="flex justify-between text-sm">
+          <span>Delivery</span>
+          <span id="cart-delivery">₹49</span>
+        </div>
+        <div class="flex justify-between font-bold">
+          <span>Total</span>
+          <span id="cart-total">₹0</span>
+        </div>
+      </div>
+      <button
+        class="w-full bg-[#81063a] text-white py-2 rounded-lg font-bold hover:bg-[#a81a54] transition-colors">Place
+        Order</button>
+    </div>
+  </div>
+
+  <script>
+    const menuData = [
+      // Desserts
+
+      { id: 1, name: "Gulab Jamun (2 pcs)", category: "Desserts", type: "veg", cuisine: "Indian", price: 149, originalPrice: 180, rating: 4.8, reviews: 234, bestseller: true, emoji: "🍫", desc: "Authentic traditional Indian, Soft and moist dessert. ", img: "photos/gulabjamun.png" },
+      { id: 2, name: "Nuts Baklava With Coconut Ice Cream", category: "Desserts", type: "veg", cuisine: "Indian", price: 625, originalPrice: 749, rating: 4.8, reviews: 234, bestseller: true, emoji: "🍫", desc: "Crispy baklava layered with nuts, served with coconut ice cream.", img: "photos/nutsbaklavawithcoconuticecream.png" },
+      { id: 3, name: "Brownie with Ice Cream", category: "Desserts", type: "veg", cuisine: "continental", price: 219, originalPrice: 260, rating: 4.6, reviews: 267, bestseller: false, emoji: "🍰", desc: "Warm chocolate brownie, served with vanilla ice cream.", img: "photos/browniewithicecream.png" },
+
+      // Waffles
+      { id: 4, name: "Nutella & Banana Waffle", category: "Desserts", type: "veg", cuisine: "continental", price: 499, originalPrice: 599, rating: 4.8, reviews: 345, bestseller: true, emoji: "🧇", desc: "Crispy waffle loaded with Nutella and fresh banana slices.", img: "photos/bananawaffle.png" },
+      { id: 5, name: "Strawberry Cream Waffle", category: "Desserts", type: "veg", cuisine: "continental", price: 449, originalPrice: 549, rating: 4.6, reviews: 267, bestseller: true, emoji: "🧇", desc: "Crispy waffle loaded with Nutella and fresh strawberries.", img: "photos/nutellastrawberrywaffle.png" },
+      { id: 6, name: "Biscoff Lotus Waffle", category: "Desserts", type: "veg", cuisine: "continental", price: 359, originalPrice: 449, rating: 4.5, reviews: 234, bestseller: false, emoji: "🧇", desc: "Crispy classic waffle with Biscoff Lotus spread.", img: "photos/biscofflotus.png" },
+      { id: 7, name: "Blueberry Waffle", category: "Desserts", type: "veg", cuisine: "continental", price: 359, originalPrice: 449, rating: 4.5, reviews: 198, bestseller: false, emoji: "🧇", desc: "Crispy waffle topped with fresh blueberry compote.", img: "photos/blueberrywaffle.png" },
+      { id: 8, name: "Chocolate Overloaded Waffle", category: "Desserts", type: "veg", cuisine: "continental", price: 359, originalPrice: 449, rating: 4.7, reviews: 312, bestseller: true, emoji: "🧇", desc: "Chocolate loaded waffle with a scoop of ice cream.", img: "photos/icecreamwaffle.png" }
+    ];
+
+    let activeFilter = "all";
+    let searchQuery = "";
+    let cart = JSON.parse(localStorage.getItem('fnf_cart') || '{}');
+
+    function getFiltered() {
+      return menuData.filter(item => {
+        const matchSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) || item.desc.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchFilter = activeFilter === "all" ||
+          (activeFilter === "veg" && item.type === "veg") ||
+          (activeFilter === "bestseller" && item.bestseller) ||
+          (activeFilter === "continental" && item.cuisine === "continental");
+        return matchSearch && matchFilter;
+      });
+    }
+
+    function renderItems() {
+      const grid = document.getElementById('items-grid');
+      const filtered = getFiltered();
+
+      if (filtered.length === 0) {
+        document.getElementById('no-results').classList.remove('hidden');
+        grid.innerHTML = '';
+        return;
+      }
+
+      document.getElementById('no-results').classList.add('hidden');
+
+      grid.innerHTML = filtered.map(item => `
+    <div class="menu-item" style="border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+      <div style="width:100%;height:150px;overflow:hidden;position:relative;">
+        <img src="${item.img}" alt="${item.name}" style="width:100%;height:100%;object-fit:cover;" />
+        ${item.bestseller ? `<span style="position:absolute;top:8px;left:8px;background:#81063a;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;">🔥 Bestseller</span>` : ''}
+        <span style="position:absolute;top:8px;right:8px;background:${item.type === 'veg' ? '#16a34a' : '#dc2626'};color:#fff;font-size:9px;font-weight:700;padding:2px 6px;border-radius:99px;">${item.type.toUpperCase()}</span>
+      </div>
+      <div class="p-3">
+        <h3 class="font-bold text-sm leading-snug mb-1">${item.name}</h3>
+        <p class="text-xs opacity-55 mb-2 line-clamp-2">${item.desc}</p>
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center gap-2">
+            ${item.originalPrice > item.price ? `<span class="text-xs opacity-50 line-through">₹${item.originalPrice}</span>` : ''}
+            <span class="font-bold text-base" style="color:#81063a;">₹${item.price}</span>
+          </div>
+          <div class="flex items-center gap-1 text-xs" style="color:#f59e0b;">★ <span style="color:#555;">${item.rating}</span></div>
+        </div>
+        <div class="text-center" id="action-btn-${item.id}">
+          ${cart[item.id] && cart[item.id].qty > 0 ? `
+            <div class="flex items-center justify-center gap-4">
+              <button onclick="removeFromCart(${item.id})" class="bg-[#81063a] text-white w-8 h-8 rounded-full font-bold hover:bg-[#a81a54] transition-colors">-</button>
+              <span class="font-bold w-4">${cart[item.id].qty}</span>
+              <button onclick="addToCart(${item.id})" class="bg-[#81063a] text-white w-8 h-8 rounded-full font-bold hover:bg-[#a81a54] transition-colors">+</button>
+            </div>
+          ` : `
+            <button onclick="addToCart(${item.id})" class="add-btn w-full bg-[#81063a] text-white font-bold text-sm py-2 rounded-full transition-colors hover:bg-[#a81a54]">Add to Cart</button>
+          `}
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+      lucide.createIcons();
+    }
+
+    function setFilter(filter) {
+      activeFilter = filter;
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('filter-' + filter).classList.add('active');
+      renderItems();
+    }
+
+    function filterItems(query) {
+      searchQuery = query;
+      renderItems();
+    }
+
+    function updateItemCardUI(id) {
+      const actionDiv = document.getElementById(`action-btn-${id}`);
+      if (!actionDiv) return;
+      if (cart[id] && cart[id].qty > 0) {
+        actionDiv.innerHTML = `<div class="flex items-center justify-center gap-4"><button onclick="removeFromCart(${id})" class="bg-[#81063a] text-white w-8 h-8 rounded-full font-bold">-</button><span class="font-bold w-4">${cart[id].qty}</span><button onclick="addToCart(${id})" class="bg-[#81063a] text-white w-8 h-8 rounded-full font-bold">+</button></div>`;
+      } else {
+        actionDiv.innerHTML = `<button onclick="addToCart(${id})" class="add-btn w-full bg-[#81063a] text-white font-bold text-sm py-2 rounded-full transition-colors hover:bg-[#a81a54]">Add to Cart</button>`;
+      }
+    }
+
+    function addToCart(id) {
+      if (!cart[id]) {
+        const item = menuData.find(i => i.id === id);
+        if (!item) return;
+        cart[id] = { ...item, qty: 0 };
+      }
+      cart[id].qty++;
+      localStorage.setItem('fnf_cart', JSON.stringify(cart));
+      updateCartUI();
+      updateItemCardUI(id);
+    }
+
+    function removeFromCart(id) {
+      if (cart[id]) {
+        cart[id].qty--;
+        if (cart[id].qty <= 0) delete cart[id];
+        localStorage.setItem('fnf_cart', JSON.stringify(cart));
+        updateCartUI();
+        updateItemCardUI(id);
+      }
+    }
+
+    function updateCartUI() {
+      const items = Object.values(cart);
+      const count = items.reduce((s, i) => s + i.qty, 0);
+      const subtotal = items.reduce((s, i) => s + i.price * i.qty, 0);
+      const delivery = subtotal >= 199 ? 0 : 49;
+      const total = subtotal + delivery;
+
+      const countEl = document.getElementById('cart-count');
+      countEl.textContent = count;
+      if (count > 0) { countEl.classList.remove('hidden'); countEl.classList.add('cart-bounce'); setTimeout(() => countEl.classList.remove('cart-bounce'), 300); }
+      else countEl.classList.add('hidden');
+
+      const cartItemsEl = document.getElementById('cart-items');
+      const cartEmpty = document.getElementById('cart-empty');
+      const cartFooter = document.getElementById('cart-footer');
+
+      if (items.length === 0) {
+        cartItemsEl.innerHTML = '';
+        cartEmpty.classList.remove('hidden');
+        cartFooter.classList.add('hidden');
+      } else {
+        cartEmpty.classList.add('hidden');
+        cartFooter.classList.remove('hidden');
+        cartItemsEl.innerHTML = '';
+        items.forEach(item => {
+          const div = document.createElement('div');
+          div.className = 'flex items-center gap-3 bg-gray-50 rounded-lg p-2';
+          div.innerHTML = `
+        <span class="text-2xl">${item.emoji}</span>
+        <div class="flex-1 min-w-0">
+          <p class="font-bold text-sm text-gray-800 truncate">${item.name}</p>
+          <p class="text-xs font-bold" style="color:#81063a;">₹${item.price} each</p>
+        </div>
+        <div class="flex items-center gap-1 bg-[#81063a] rounded-full px-2 py-0.5">
+          <button onclick="removeFromCart(${item.id})" class="text-white font-black text-sm w-4 h-4 flex items-center justify-center">-</button>
+          <span class="text-white font-black text-sm">${item.qty}</span>
+          <button onclick="addToCart(${item.id})" class="text-white font-black text-sm w-4 h-4 flex items-center justify-center">+</button>
+        </div>
+        <span class="font-black text-sm text-gray-800 w-12 text-right">₹${item.price * item.qty}</span>`;
+          cartItemsEl.appendChild(div);
+        });
+      }
+
+      document.getElementById('cart-subtotal').textContent = `₹${subtotal}`;
+      document.getElementById('cart-delivery').textContent = delivery === 0 ? 'FREE' : `₹${delivery}`;
+      document.getElementById('cart-total').textContent = `₹${total}`;
+    }
+
+    function toggleCart() {
+      const drawer = document.getElementById('cart-drawer');
+      const overlay = document.getElementById('cart-overlay');
+      const isOpen = !drawer.classList.contains('translate-x-full');
+      if (isOpen) {
+        drawer.classList.add('translate-x-full');
+        overlay.classList.add('hidden');
+      } else {
+        drawer.classList.remove('translate-x-full');
+        overlay.classList.remove('hidden');
+      }
+    }
+
+    function filterByCuisine(cuisine) {
+      activeFilter = cuisine;
+      renderItems();
+    }
+
+    // Initialize
+    renderItems();
+  </script>
+</body>
+
+</html>

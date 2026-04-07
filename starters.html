@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="en" class="h-full">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Starters Menu - Fable & Frost</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&amp;display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="category icon" href="\photos\category-icon.png">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&amp;family=DM+Sans:wght@300;400;500;600&amp;family=Poppins:wght@400;500;600;700&amp;display=swap"
+    rel="stylesheet">
+  <style>
+    h2 {
+      color: #81063a !important;
+    }
+
+    :root {
+      --bg: #fdf8f3;
+      --surface: #ffffff;
+      --text: #1a1a2e;
+      --accent: #81063a;
+      --warm: #e8a045;
+    }
+
+    * {
+      font-family: 'DM Sans', sans-serif;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .playfair {
+      font-family: 'Poppins', serif;
+    }
+
+    .page-heading {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+    }
+
+    .flipkart-blue {
+      background: #db5d5d;
+    }
+
+    .card-shadow {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    }
+
+    .badge-veg::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #0f8a65;
+      border-radius: 50%;
+      margin-right: 4px;
+    }
+
+    .badge-nonveg::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #d32f2f;
+      border-radius: 50%;
+      margin-right: 4px;
+    }
+
+    .menu-item:hover {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .menu-item {
+      transition: all 0.2s ease;
+      background: var(--surface);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    .add-btn {
+      transition: all 0.15s;
+      background: #81063a;
+      color: white;
+    }
+
+    .add-btn:hover {
+      background: #a81a54;
+    }
+
+    .cart-bounce {
+      animation: cartPop 0.3s ease;
+    }
+
+    @keyframes cartPop {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.3);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .category-tab.active {
+      border-bottom: 3px solid #2874f0;
+      color: #2874f0;
+      font-weight: 800;
+    }
+
+    .category-tab {
+      border-bottom: 3px solid transparent;
+    }
+
+    .star {
+      color: #ff9f00;
+    }
+
+    .offer-badge {
+      background: linear-gradient(135deg, #ff6600, #ff3d00);
+    }
+
+    .hero-gradient {
+      background: linear-gradient(135deg, #1a237e 0%, #2874f0 60%, #42a5f5 100%);
+    }
+
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 8px 0;
+      transition: gap 0.2s;
+      text-decoration: none;
+    }
+
+    .back-btn:hover {
+      gap: 10px;
+    }
+
+    .section-accent {
+      width: 48px;
+      height: 3px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--warm));
+      margin: 8px 0 20px;
+    }
+
+    .cuisine-icon-btn {
+      border: none;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .cuisine-icon-circle {
+      transition: all 0.3s ease;
+    }
+
+    .cuisine-icon-btn:hover .cuisine-icon-circle {
+      transform: scale(1.1);
+    }
+  </style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+</head>
+
+<body class="h-full">
+  <!-- HEADER -->
+  <header id="main-header" class="sticky top-0 z-50 shadow-md"
+    style="background: #ffe7c4; backdrop-filter: blur(12px); border-bottom: 1px solid rgba(192, 57, 43, 0.12);">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center gap-4">
+      <a href="fable.html" class="back-btn" style="color:#81063a">
+        <i data-lucide="arrow-left" style="width:18px;height:18px; color:#81063a"></i> Back to Menu
+      </a>
+      <div class="flex-1 max-w-sm relative">
+        <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400"></i>
+        <input id="search-input" type="text" placeholder="Search starters..."
+          class="w-full rounded-full px-10 py-2 text-sm outline-none text-gray-800 font-semibold"
+          oninput="filterItems(this.value)">
+      </div><!-- Cart Button -->
+      <button onclick="toggleCart()"
+        class="relative flex items-center justify-center w-10 h-10 rounded-full transition-all hover:opacity-80"
+        style="background-color: rgba(219, 93, 93, 0.15);">
+        <i data-lucide="shopping-cart" class="w-5 h-5" style="color:#81063a;"></i>
+        <span id="cart-count"
+          class="absolute -top-1 -right-1 bg-[#81063a] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center hidden">0</span>
+      </button><!-- Right Side: Name -->
+      <div class="flex flex-col items-end gap-1 flex-shrink-0">
+        <h1 class="playfair text-xl md:text-2xl font-bold" style="color:#81063a;">🍽️ Starters</h1>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="max-w-6xl mx-auto px-4 py-4">
+    <!-- CUISINE ICONS -->
+    <div class="mb-6">
+      <div class="flex justify-center gap-4 flex-wrap">
+        <button onclick="filterByCuisine('indian')"
+          class="cuisine-icon-btn flex flex-col items-center p-4 rounded-xl bg-gradient-to-br from-orange-100 to-orange-200 hover:from-orange-200 hover:to-orange-300 transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg">
+          <div
+            class="cuisine-icon-circle w-16 h-16 rounded-full bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center mb-2 shadow-inner overflow-hidden">
+            <img src="photos/butterchicken.png" alt="Indian Cuisine" class="w-full h-full object-cover">
+          </div>
+          <span class="text-sm font-semibold text-gray-700">Indian</span>
+        </button>
+        <button onclick="filterByCuisine('chinese')"
+          class="cuisine-icon-btn flex flex-col items-center p-4 rounded-xl bg-gradient-to-br from-red-100 to-red-200 hover:from-red-200 hover:to-red-300 transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg">
+          <div
+            class="cuisine-icon-circle w-16 h-16 rounded-full bg-gradient-to-br from-red-400 to-red-600 flex items-center justify-center mb-2 shadow-inner overflow-hidden">
+            <img src="photos/glassnoodlespringroll.png" alt="Chinese Cuisine" class="w-full h-full object-cover">
+          </div>
+          <span class="text-sm font-semibold text-gray-700">Chinese</span>
+        </button>
+        <button onclick="filterByCuisine('continental')"
+          class="cuisine-icon-btn flex flex-col items-center p-4 rounded-xl bg-gradient-to-br from-blue-100 to-blue-200 hover:from-blue-200 hover:to-blue-300 transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg">
+          <div
+            class="cuisine-icon-circle w-16 h-16 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center mb-2 shadow-inner overflow-hidden">
+            <img src="photos/chickenpepperonipizza.png" alt="Continental Cuisine" class="w-full h-full object-cover">
+          </div>
+          <span class="text-sm font-semibold text-gray-700">Continental</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- FILTER ROW -->
+    <div class="flex gap-2 mb-3 flex-wrap">
+      <button onclick="setFilter('all')" id="filter-all"
+        class="filter-btn active text-xs font-bold px-3 py-1.5 rounded-full border-2 border-blue-500 text-blue-600 bg-blue-50">All</button>
+      <button onclick="setFilter('veg')" id="filter-veg"
+        class="filter-btn text-xs font-bold px-3 py-1.5 rounded-full border-2 border-gray-200 text-gray-600 hover:border-green-500 hover:text-green-600">🟢
+        Pure Veg</button>
+      <button onclick="setFilter('nonveg')" id="filter-nonveg"
+        class="filter-btn text-xs font-bold px-3 py-1.5 rounded-full border-2 border-gray-200 text-gray-600 hover:border-red-500 hover:text-red-600">🔴
+        Non-Veg</button>
+      <button onclick="setFilter('bestseller')" id="filter-bestseller"
+        class="filter-btn text-xs font-bold px-3 py-1.5 rounded-full border-2 border-gray-200 text-gray-600 hover:border-[#81063a] hover:text-[#81063a]">🔥
+        Bestseller</button>
+    </div>
+
+    <!-- ITEMS GRID -->
+    <div id="items-grid" class="grid grid-cols-2 gap-4"></div>
+    <div id="no-results" class="hidden text-center py-16 text-gray-400 font-semibold">
+      No items found 😢
+    </div>
+  </main>
+
+  <!-- Cart Drawer -->
+  <div id="cart-overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden z-40" onclick="toggleCart()"></div>
+  <div id="cart-drawer"
+    class="fixed top-0 right-0 h-full w-80 bg-white shadow-xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col">
+    <div class="flex items-center justify-between p-4 border-b">
+      <h2 class="text-lg font-bold">Your Cart</h2>
+      <button onclick="toggleCart()" class="text-gray-500 hover:text-gray-700">
+        <i data-lucide="x" class="w-6 h-6"></i>
+      </button>
+    </div>
+    <div id="cart-empty" class="flex-1 flex items-center justify-center text-gray-500">
+      <div class="text-center">
+        <i data-lucide="shopping-cart" class="w-12 h-12 mx-auto mb-2 opacity-50"></i>
+        <p>Your cart is empty</p>
+      </div>
+    </div>
+    <div id="cart-items" class="flex-1 overflow-y-auto p-4 space-y-2"></div>
+    <div id="cart-footer" class="border-t p-4 hidden">
+      <div class="space-y-2 mb-4">
+        <div class="flex justify-between text-sm">
+          <span>Subtotal</span>
+          <span id="cart-subtotal">₹0</span>
+        </div>
+        <div class="flex justify-between text-sm">
+          <span>Delivery</span>
+          <span id="cart-delivery">₹49</span>
+        </div>
+        <div class="flex justify-between font-bold">
+          <span>Total</span>
+          <span id="cart-total">₹0</span>
+        </div>
+      </div>
+      <button
+        class="w-full bg-[#81063a] text-white py-2 rounded-lg font-bold hover:bg-[#a81a54] transition-colors">Place
+        Order</button>
+    </div>
+  </div>
+
+  <script>
+    const menuData = [
+      // Indian Starters
+
+      { id: 101, name: "Paneer Tikka", category: "Starters", type: "veg", cuisine: "indian", price: 380, originalPrice: 495, rating: 4.7, reviews: 210, bestseller: true, emoji: "🧀", desc: "Paneer pieces marinated in Indian spices and charred in tandoor with some aroma spices.", img: "photos/paneertikka.png" },
+      { id: 102, name: "Veg Seekh Kebab", category: "Starters", type: "veg", cuisine: "indian", price: 240, originalPrice: 340, rating: 4.5, reviews: 180, bestseller: false, emoji: "🥕", desc: "Carrots, beans, peas, mashed potatoes, paneer, and soya granules with spices.", img: "photos/vegseekhkebab.png" },
+      { id: 103, name: "Hara Bhara Kebab", category: "Starters", type: "veg", cuisine: "indian", price: 240, originalPrice: 340, rating: 4.4, reviews: 160, bestseller: false, emoji: "🥬", desc: "Spinach, peas, and potatoes. Highly nutritious and contains proteins, fiber, and is low in fat.", img: "photos/harabharakebab.png" },
+      { id: 104, name: "Dahi Ke Sholey", category: "Starters", type: "veg", cuisine: "indian", price: 299, originalPrice: 399, rating: 4.6, reviews: 175, bestseller: false, emoji: "🍞", desc: "Bread stuffed with spicy hung curd filling and deep fried.", img: "photos/yogurtcottagecheeseexplosion.png" },
+      { id: 105, name: "Malai Soya Chaap", category: "Starters", type: "veg", cuisine: "indian", price: 325, originalPrice: 425, rating: 4.5, reviews: 150, bestseller: false, emoji: "🌱", desc: "Soybean-based sticks marinated in a rich, creamy sauce made from cream, yogurt, cashew paste, and mild spices.", img: "photos/malaisoyachaap.png" },
+      { id: 106, name: "Tandoori Soya Chaap", category: "Starters", type: "veg", cuisine: "indian", price: 380, originalPrice: 495, rating: 4.4, reviews: 140, bestseller: false, emoji: "🌱", desc: "Marinated and grilled/charred soya chaap, finished with cream, lemon juice, and chaat masala.", img: "photos/tandoorisoyachaap.png" },
+      { id: 107, name: "Tandoori Stuffed Potato", category: "Starters", type: "veg", cuisine: "indian", price: 380, originalPrice: 495, rating: 4.3, reviews: 120, bestseller: false, emoji: "🥔", desc: "Stuffed potato with paneer, veggies, and spices, grilled or baked until smoky and charred.", img: "photos/tandooristuffedpotato.png" },
+      { id: 108, name: "Tandoori Mushroom", category: "Starters", type: "veg", cuisine: "indian", price: 350, originalPrice: 450, rating: 4.5, reviews: 130, bestseller: false, emoji: "🍄", desc: "Button mushrooms with spices, grilled or baked.", img: "photos/29.png" },
+      { id: 109, name: "Veg Platter", category: "Starters", type: "veg", cuisine: "indian", price: 480, originalPrice: 650, rating: 4.7, reviews: 110, bestseller: true, emoji: "🥗", desc: "Assorted veg starters platter.", img: "photos/vegplatter.png" },
+      { id: 110, name: "Paneer Tikka Roll", category: "Starters", type: "veg", cuisine: "indian", price: 249, originalPrice: 290, rating: 4.6, reviews: 140, bestseller: true, emoji: "🌯", desc: "An easy and simple snack recipe made with leftover roti or chapati and paneer stuffing.", img: "photos/paneertikkaroll.png" },
+      // Non-Veg Indian Starters
+      { id: 201, name: "Chicken Tikka", category: "Starters", type: "nonveg", cuisine: "indian", price: 450, originalPrice: 595, rating: 4.8, reviews: 250, bestseller: true, emoji: "🍗", desc: "Yogurt-marinated, spiced chicken chunks grilled or baked for a charred, smoky flavor.", img: "photos/chicken tikka.png" },
+      { id: 202, name: "Chicken Malai Tikka", category: "Starters", type: "nonveg", cuisine: "indian", price: 380, originalPrice: 499, rating: 4.7, reviews: 200, bestseller: false, emoji: "🍗", desc: "Boneless chicken in yogurt, cream, cheese, and mild spices, grilled or pan-fried.", img: "photos/chickenmalaitikka.png" },
+      { id: 203, name: "Kadak Seekh Kebab", category: "Starters", type: "nonveg", cuisine: "indian", price: 380, originalPrice: 499, rating: 4.6, reviews: 180, bestseller: false, emoji: "🍢", desc: "Boneless chicken with hung curd, ginger garlic paste, garam masala, and chili, grilled or pan-fried.", img: "photos/kadakseekhkebab.png" },
+      { id: 204, name: "Chicken Seekh Kebab", category: "Starters", type: "nonveg", cuisine: "indian", price: 439, originalPrice: 549, rating: 4.5, reviews: 170, bestseller: false, emoji: "🍢", desc: "Minced chicken blended with ginger, garlic, green chilies, coriander, and spices, grilled or pan-fried.", img: "photos/chickenseekhkebab.png" },
+      { id: 205, name: "Tandoori Chicken", category: "Starters", type: "nonveg", cuisine: "indian", price: 500, originalPrice: 649, rating: 4.7, reviews: 220, bestseller: true, emoji: "🍗", desc: "Chicken marinated in thick yogurt and spices, cooked until charred.", img: "photos/chicken tikka.png" },
+      { id: 206, name: "Mutton Seekh Kebab", category: "Starters", type: "nonveg", cuisine: "indian", price: 645, originalPrice: 750, rating: 4.6, reviews: 160, bestseller: false, emoji: "🥩", desc: "Minced mutton with ginger-garlic paste, green chilies, onions, coriander, garam masala, and besan, grilled or pan-fried.", img: "photos/muttonseekhkebab.png" },
+      { id: 207, name: "Non Veg Platter", category: "Starters", type: "nonveg", cuisine: "indian", price: 599, originalPrice: 799, rating: 4.8, reviews: 130, bestseller: true, emoji: "🍖", desc: "Assorted non-veg starters platter.", img: "photos/nonvegplatter.png" },
+      { id: 208, name: "Chicken Tikka Roll", category: "Starters", type: "nonveg", cuisine: "indian", price: 299, originalPrice: 350, rating: 4.7, reviews: 180, bestseller: true, emoji: "🌯", desc: "Marinated, succulent chicken tikka pieces cooked until smoky, wrapped in a flaky paratha with mint chutney.", img: "photos/chickentikkaroll.png" },
+      // Continental Starters
+      // Salads
+      { id: 301, name: "Avocado Sprouts Salad", category: "Starters", type: "veg", cuisine: "continental", price: 249, originalPrice: 290, rating: 4.8, reviews: 156, bestseller: false, emoji: "🥗", desc: "Creamy avocado, crunchy sprouts, with healthy dressing", img: "photos/15.png" },
+      { id: 302, name: "Watermelon Feta Salad", category: "Starters", type: "veg", cuisine: "continental", price: 229, originalPrice: 260, rating: 4.6, reviews: 120, bestseller: true, emoji: "🍉", desc: "Juicy watermelon cubes paired with salty feta", img: "photos/19.png" },
+
+      // Bruschetta & Sandwiches
+      { id: 303, name: "Grilled Veg Feta Bruschetta", category: "Starters", type: "veg", cuisine: "continental", price: 275, originalPrice: 320, rating: 4.4, reviews: 145, bestseller: false, emoji: "🥖", desc: "Toasted garlic bread topped with grilled veggies and feta", img: "photos/vegbruschetta.png" },
+      { id: 304, name: "Avocado & Tomato Bruschetta", category: "Starters", type: "veg", cuisine: "continental", price: 295, originalPrice: 340, rating: 4.7, reviews: 210, bestseller: true, emoji: "🥖", desc: "Creamy avocado mash with diced tomatoes", img: "photos/avocadobruschetta.png" },
+      { id: 305, name: "Wild Mushroom Bruschetta", category: "Starters", type: "veg", cuisine: "continental", price: 295, originalPrice: 340, rating: 4.5, reviews: 180, bestseller: false, emoji: "🥖", desc: "Sautéed wild mushrooms with garlic", img: "photos/mushroombruschetta.png" },
+      { id: 306, name: "Spinach Corn Cheese Sandwich", category: "Starters", type: "veg", cuisine: "continental", price: 325, originalPrice: 380, rating: 4.6, reviews: 250, bestseller: true, emoji: "🥪", desc: "Creamy spinach, sweet corn and cheese", img: "photos/spinachsandwich.png" },
+      { id: 307, name: "Herbs Vegetable Sandwich", category: "Starters", type: "veg", cuisine: "continental", price: 295, originalPrice: 340, rating: 4.3, reviews: 130, bestseller: false, emoji: "🥪", desc: "Fresh vegetables tossed with mixed herbs", img: "photos/vegsandwich.png" },
+      { id: 308, name: "Grilled Cottage Cheese Sandwich", category: "Starters", type: "veg", cuisine: "continental", price: 345, originalPrice: 400, rating: 4.8, reviews: 310, bestseller: true, emoji: "🥪", desc: "Grilled paneer slices with vegetables", img: "photos/paneersandwich.png" },
+      { id: 309, name: "Tandoori Chicken Sandwich", category: "Starters", type: "nonveg", cuisine: "continental", price: 345, originalPrice: 400, rating: 4.7, reviews: 290, bestseller: true, emoji: "🥪", desc: "Tandoori-marinated chicken with spices", img: "photos/tandoorisandwich.png" },
+      { id: 310, name: "BBQ Pulled Chicken Sandwich", category: "Starters", type: "nonveg", cuisine: "continental", price: 375, originalPrice: 440, rating: 4.6, reviews: 220, bestseller: false, emoji: "🥪", desc: "Slow-cooked BBQ pulled chicken", img: "photos/bbqsandwich.png" },
+
+      // Fries & Small Bites
+      { id: 311, name: "Cajun Spiced Potato Wedges", category: "Starters", type: "veg", cuisine: "continental", price: 249, originalPrice: 290, rating: 4.5, reviews: 190, bestseller: false, emoji: "🥔", desc: "Crispy potato wedges tossed in Cajun spices", img: "photos/cajunwedges.png" },
+      { id: 312, name: "Roasted Garlic Parmesan Wedges", category: "Starters", type: "veg", cuisine: "continental", price: 199, originalPrice: 240, rating: 4.6, reviews: 210, bestseller: true, emoji: "🥔", desc: "Golden roasted wedges with garlic and parmesan", img: "photos/garlicwedges.png" },
+      { id: 313, name: "Salted / Peri-Peri Fries", category: "Starters", type: "veg", cuisine: "continental", price: 249, originalPrice: 290, rating: 4.4, reviews: 340, bestseller: true, emoji: "🍟", desc: "Classic salted crispy fries or fiery peri-peri", img: "photos/periperifries.png" },
+      { id: 314, name: "Truffle Parmesan Fries", category: "Starters", type: "veg", cuisine: "continental", price: 345, originalPrice: 400, rating: 4.7, reviews: 150, bestseller: false, emoji: "🍟", desc: "Crispy fries infused with truffle oil and parmesan", img: "photos/trufflefries.png" },
+      { id: 315, name: "Crispy Mozzarella Sticks", category: "Starters", type: "veg", cuisine: "continental", price: 325, originalPrice: 380, rating: 4.8, reviews: 280, bestseller: true, emoji: "🧀", desc: "Breaded mozzarella fried until golden brown", img: "photos/mozzarellasticks.png" },
+      { id: 316, name: "Pull Apart Garlic Bread", category: "Starters", type: "veg", cuisine: "continental", price: 325, originalPrice: 380, rating: 4.5, reviews: 160, bestseller: false, emoji: "🍞", desc: "Soft buttery bread layered with garlic", img: "photos/pullapartgarlic.png" },
+
+      // Appetizers
+      { id: 317, name: "Veg Loaded Nachos", category: "Starters", type: "veg", cuisine: "continental", price: 295, originalPrice: 340, rating: 4.6, reviews: 270, bestseller: true, emoji: "🌮", desc: "Crispy nachos layered with beans, cheese, and salsa", img: "photos/vegloadednachos.png" },
+      { id: 318, name: "Yogurt Cottage Cheese Explosion", category: "Starters", type: "veg", cuisine: "continental", price: 399, originalPrice: 460, rating: 4.4, reviews: 110, bestseller: false, emoji: "🧀", desc: "Creamy spiced yogurt encasing soft cottage cheese", img: "photos/yogurtcottagecheeseexplosion.png" },
+      { id: 319, name: "Amritsari Fish Fingers", category: "Starters", type: "nonveg", cuisine: "continental", price: 345, originalPrice: 400, rating: 4.5, reviews: 190, bestseller: false, emoji: "🐟", desc: "Crisp batter-fried fish marinated with spices", img: "photos/amritsarifishfinger.png" },
+      { id: 320, name: "Crispy Parmesan Chicken Sticks", category: "Starters", type: "nonveg", cuisine: "continental", price: 445, originalPrice: 510, rating: 4.7, reviews: 230, bestseller: true, emoji: "🍗", desc: "Breaded chicken strips coated in parmesan cheese", img: "photos/parmesanchicken.png" },
+
+      // Wraps
+      { id: 321, name: "Grilled Cottage Cheese Wrap", category: "Starters", type: "veg", cuisine: "continental", price: 295, originalPrice: 350, rating: 4.5, reviews: 210, bestseller: false, emoji: "🌯", desc: "Smoky grilled cottage cheese wrapped with veggies", img: "photos/paneerwrap.png" },
+      { id: 322, name: "Veggie Garden Wrap", category: "Starters", type: "veg", cuisine: "continental", price: 345, originalPrice: 400, rating: 4.3, reviews: 140, bestseller: false, emoji: "🌯", desc: "Crunchy fresh vegetables and lettuce wrap", img: "photos/veggiewrap.png" },
+      { id: 323, name: "Cajun Spiced Chicken Wrap", category: "Starters", type: "nonveg", cuisine: "continental", price: 345, originalPrice: 400, rating: 4.6, reviews: 260, bestseller: true, emoji: "🌯", desc: "Tender Cajun-marinated grilled chicken wrapped", img: "photos/cajunwrap.png" },
+      { id: 324, name: "Tandoori Chicken Wrap", category: "Starters", type: "nonveg", cuisine: "continental", price: 345, originalPrice: 400, rating: 4.7, reviews: 310, bestseller: true, emoji: "🌯", desc: "Tandoori chicken tikka, onions, and sauces", img: "photos/tandooriwrap.png" },
+
+      // Burgers
+      { id: 325, name: "Crispy Veg Burger", category: "Starters", type: "veg", cuisine: "continental", price: 199, originalPrice: 240, rating: 4.4, reviews: 290, bestseller: true, emoji: "🍔", desc: "Golden crumb-fried vegetable patty with fresh lettuce", img: "photos/13.png" },
+      { id: 326, name: "Wild Mushroom Burger", category: "Starters", type: "veg", cuisine: "continental", price: 245, originalPrice: 290, rating: 4.6, reviews: 180, bestseller: false, emoji: "🍔", desc: "Sautéed wild mushrooms and cheese", img: "photos/mushroomburger.png" },
+      { id: 327, name: "Pesto Paneer Burger", category: "Starters", type: "veg", cuisine: "continental", price: 245, originalPrice: 290, rating: 4.5, reviews: 230, bestseller: false, emoji: "🍔", desc: "Grilled paneer marinated in fresh basil pesto", img: "photos/pestoburger.png" },
+      { id: 328, name: "Chicken Tikka Burger", category: "Starters", type: "nonveg", cuisine: "continental", price: 299, originalPrice: 350, rating: 4.8, reviews: 380, bestseller: true, emoji: "🍔", desc: "Smoky chicken tikka patty with mint mayo", img: "photos/chickentikkaburger.png" },
+      { id: 329, name: "Peri-Peri Chicken Burger", category: "Starters", type: "nonveg", cuisine: "continental", price: 245, originalPrice: 290, rating: 4.7, reviews: 320, bestseller: true, emoji: "🍔", desc: "Juicy peri-peri grilled chicken with spicy mayo", img: "photos/periperiburger.png" },
+
+      //chinese starters
+      // Soup
+      { id: 350, name: "Hot & Sour Soup", category: "Starters", type: "veg", cuisine: "chinese", price: 199, originalPrice: 240, rating: 4.5, reviews: 150, bestseller: false, emoji: "🥣", desc: "A bold, tangy, and spicy broth filled with veggies", img: "photos/hotandsoursoup.png" },
+      { id: 351, name: "Hot & Sour Soup", category: "Starters", type: "nonveg", cuisine: "chinese", price: 199, originalPrice: 249, rating: 4.6, reviews: 120, bestseller: false, emoji: "🥣", desc: "A bold, tangy, and spicy broth filled with chicken", img: "photos/hotandsoursoupchicken.png" },
+      { id: 352, name: "Manchow Soup", category: "Starters", type: "veg", cuisine: "chinese", price: 199, originalPrice: 240, rating: 4.7, reviews: 310, bestseller: true, emoji: "🥣", desc: "A spicy, tangy soup loaded with veggies", img: "photos/manchowsoup.png" },
+      { id: 353, name: "Manchow Soup (Chicken)", category: "Starters", type: "nonveg", cuisine: "chinese", price: 199, originalPrice: 249, rating: 4.8, reviews: 290, bestseller: true, emoji: "🥣", desc: "A spicy, tangy soup loaded with chicken", img: "photos/manchowsoup.png" },
+      { id: 354, name: "Lemon Coriander Soup", category: "Starters", type: "veg", cuisine: "chinese", price: 249, originalPrice: 290, rating: 4.4, reviews: 110, bestseller: false, emoji: "🥣", desc: "A light, refreshing, and aromatic soup", img: "photos/lemoncoriandersoup.png" },
+      { id: 355, name: "Lemon Coriander Soup (Chicken)", category: "Starters", type: "nonveg", cuisine: "chinese", price: 249, originalPrice: 290, rating: 4.5, reviews: 130, bestseller: false, emoji: "🥣", desc: "A light, refreshing, and aromatic soup with chicken", img: "photos/lemoncoriandersoupchicken.png" },
+
+      // Dimsums
+      { id: 356, name: "Mushroom Cream Cheese Dimsums", category: "Starters", type: "veg", cuisine: "chinese", price: 499, originalPrice: 580, rating: 4.8, reviews: 210, bestseller: true, emoji: "🥟", desc: "Delicate dumplings filled with sauteed mushroom and cream cheese", img: "photos/mushroomdimsum.png" },
+      { id: 357, name: "Bok Choy Broccoli Dimsums", category: "Starters", type: "veg", cuisine: "chinese", price: 525, originalPrice: 600, rating: 4.6, reviews: 140, bestseller: false, emoji: "🥟", desc: "Light vegetable dumplings packed with bok choy and broccoli", img: "photos/bokchoydimsum.png" },
+      { id: 358, name: "Chicken Chilli Oil Dimsums", category: "Starters", type: "nonveg", cuisine: "chinese", price: 525, originalPrice: 600, rating: 4.9, reviews: 340, bestseller: true, emoji: "🥟", desc: "Juicy chicken dumplings tossed in fiery chilli oil", img: "photos/chickenchillioildimsum.png" },
+
+      // Chinese Classics
+      { id: 359, name: "Glass Noodle Mushroom Spring Rolls", category: "Starters", type: "veg", cuisine: "chinese", price: 299, originalPrice: 350, rating: 4.5, reviews: 190, bestseller: false, emoji: "🥢", desc: "Crispy spring rolls stuffed with glass noodles and mushrooms", img: "photos/16.png" },
+      { id: 360, name: "Honey Chilli Potato", category: "Starters", type: "veg", cuisine: "chinese", price: 299, originalPrice: 350, rating: 4.7, reviews: 380, bestseller: true, emoji: "🥔", desc: "Crisp potato fingers tossed in a sweet and spicy honey chilli glaze", img: "photos/honeychillipotato.png" },
+      { id: 361, name: "Crispy Corn", category: "Starters", type: "veg", cuisine: "chinese", price: 299, originalPrice: 350, rating: 4.6, reviews: 260, bestseller: true, emoji: "🌽", desc: "Golden corn kernels fried crispy and tossed with spices", img: "photos/20.png" },
+      { id: 362, name: "Chilli Paneer (Dry/Gravy)", category: "Starters", type: "veg", cuisine: "chinese", price: 299, originalPrice: 350, rating: 4.7, reviews: 310, bestseller: true, emoji: "🥢", desc: "Soft paneer tossed with peppers in a spicy soy sauce", img: "photos/chillipaneer.png" },
+      { id: 363, name: "Chilli Chicken (Dry/Gravy)", category: "Starters", type: "nonveg", cuisine: "chinese", price: 349, originalPrice: 400, rating: 4.8, reviews: 420, bestseller: true, emoji: "🥢", desc: "Classic Indo-Chinese chicken tossed in a savory, spicy sauce", img: "photos/chillichicken.png" },
+      { id: 364, name: "Thai Basil Chicken", category: "Starters", type: "nonveg", cuisine: "chinese", price: 399, originalPrice: 460, rating: 4.6, reviews: 180, bestseller: false, emoji: "🥢", desc: "Minced chicken stir-fried with Thai basil and chilies", img: "photos/thaibasilchicken.png" },
+      { id: 365, name: "Korean Gochujang Wings", category: "Starters", type: "nonveg", cuisine: "chinese", price: 299, originalPrice: 350, rating: 4.7, reviews: 290, bestseller: true, emoji: "🍗", desc: "Fried chicken wings glazed in a spicy and sweet Korean gochujang sauce", img: "photos/koreanwings.png" }
+    ];
+
+    let activeFilter = "all";
+    let searchQuery = "";
+    let cart = JSON.parse(localStorage.getItem('fnf_cart') || '{}');
+
+    function getFiltered() {
+      return menuData.filter(item => {
+        const matchSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) || item.desc.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchFilter = activeFilter === "all" ||
+          (activeFilter === "veg" && item.type === "veg") ||
+          (activeFilter === "nonveg" && item.type === "nonveg") ||
+          (activeFilter === "bestseller" && item.bestseller) ||
+          (activeFilter === "indian" && item.cuisine === "indian") ||
+          (activeFilter === "chinese" && item.cuisine === "chinese") ||
+          (activeFilter === "continental" && item.cuisine === "continental");
+        return matchSearch && matchFilter;
+      });
+    }
+
+    function renderItems() {
+      const grid = document.getElementById('items-grid');
+      const filtered = getFiltered();
+
+      if (filtered.length === 0) {
+        document.getElementById('no-results').classList.remove('hidden');
+        grid.innerHTML = '';
+        return;
+      }
+
+      document.getElementById('no-results').classList.add('hidden');
+
+      // Group items by cuisine and type
+      const groups = {};
+      // Define specific display orders or standard names
+      filtered.forEach(item => {
+        const cuisineStr = item.cuisine.charAt(0).toUpperCase() + item.cuisine.slice(1);
+        const typeStr = item.type === 'veg' ? 'Veg' : 'Non-Veg';
+        const key = `${cuisineStr} ${typeStr} Starters`;
+        if (!groups[key]) {
+          groups[key] = [];
+        }
+        groups[key].push(item);
+      });
+
+      let html = '';
+      for (const groupName in groups) {
+        html += `<div class="col-span-full mt-2 mb-2"><h2 class="text-lg font-extrabold text-[#81063a] border-b-2 border-[#81063a] border-opacity-30 pb-1">${groupName}</h2></div>`;
+        html += groups[groupName].map(item => `
+    <div class="menu-item" style="border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+      <div style="width:100%;height:150px;overflow:hidden;position:relative;">
+        <img src="${item.img}" alt="${item.name}" style="width:100%;height:100%;object-fit:cover;" />
+        ${item.bestseller ? `<span style="position:absolute;top:8px;left:8px;background:#81063a;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;">🔥 Bestseller</span>` : ''}
+        <span style="position:absolute;top:8px;right:8px;background:${item.type==='veg'?'#16a34a':'#dc2626'};color:#fff;font-size:9px;font-weight:700;padding:2px 6px;border-radius:99px;">${item.type.toUpperCase()}</span>
+      </div>
+      <div class="p-3">
+        <h3 class="font-bold text-sm leading-snug mb-1">${item.name}</h3>
+        <p class="text-xs opacity-55 mb-2 line-clamp-2">${item.desc}</p>
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center gap-2">
+            ${item.originalPrice > item.price ? `<span class="text-xs opacity-50 line-through">₹${item.originalPrice}</span>` : ''}
+            <span class="font-bold text-base" style="color:#81063a;">₹${item.price}</span>
+          </div>
+          <div class="flex items-center gap-1 text-xs" style="color:#f59e0b;">★ <span style="color:#555;">${item.rating}</span></div>
+        </div>
+        <div class="text-center" id="action-btn-${item.id}">
+          ${cart[item.id] && cart[item.id].qty > 0 ? `
+            <div class="flex items-center justify-center gap-4">
+              <button onclick="removeFromCart(${item.id})" class="bg-[#81063a] text-white w-8 h-8 rounded-full font-bold hover:bg-[#a81a54] transition-colors">-</button>
+              <span class="font-bold w-4">${cart[item.id].qty}</span>
+              <button onclick="addToCart(${item.id})" class="bg-[#81063a] text-white w-8 h-8 rounded-full font-bold hover:bg-[#a81a54] transition-colors">+</button>
+            </div>
+          ` : `
+            <button onclick="addToCart(${item.id})" class="add-btn w-full bg-[#81063a] text-white font-bold text-sm py-2 rounded-full transition-colors hover:bg-[#a81a54]">Add to Cart</button>
+          `}
+        </div>
+      </div>
+    </div>
+  `).join('');
+      }
+
+      grid.innerHTML = html;
+      lucide.createIcons();
+    }
+
+    function setFilter(filter) {
+      activeFilter = filter;
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('filter-' + filter).classList.add('active');
+      renderItems();
+    }
+
+    function filterItems(query) {
+      searchQuery = query;
+      renderItems();
+    }
+
+    function updateItemCardUI(id) {
+      const actionDiv = document.getElementById(`action-btn-${id}`);
+      if (!actionDiv) return;
+      if (cart[id] && cart[id].qty > 0) {
+        actionDiv.innerHTML = `<div class="flex items-center justify-center gap-4"><button onclick="removeFromCart(${id})" class="bg-[#81063a] text-white w-8 h-8 rounded-full font-bold">-</button><span class="font-bold w-4">${cart[id].qty}</span><button onclick="addToCart(${id})" class="bg-[#81063a] text-white w-8 h-8 rounded-full font-bold">+</button></div>`;
+      } else {
+        actionDiv.innerHTML = `<button onclick="addToCart(${id})" class="add-btn w-full bg-[#81063a] text-white font-bold text-sm py-2 rounded-full transition-colors hover:bg-[#a81a54]">Add to Cart</button>`;
+      }
+    }
+
+    function addToCart(id) {
+      if (!cart[id]) {
+        const item = menuData.find(i => i.id === id);
+        if (!item) return;
+        cart[id] = { ...item, qty: 0 };
+      }
+      cart[id].qty++;
+      localStorage.setItem('fnf_cart', JSON.stringify(cart));
+      updateCartUI();
+      updateItemCardUI(id);
+    }
+
+    function removeFromCart(id) {
+      if (cart[id]) {
+        cart[id].qty--;
+        if (cart[id].qty <= 0) delete cart[id];
+        updateCartUI();
+        updateItemCardUI(id);
+      }
+    }
+
+    function updateCartUI() {
+      const items = Object.values(cart);
+      const count = items.reduce((s, i) => s + i.qty, 0);
+      const subtotal = items.reduce((s, i) => s + i.price * i.qty, 0);
+      const delivery = subtotal >= 199 ? 0 : 49;
+      const total = subtotal + delivery;
+
+      const countEl = document.getElementById('cart-count');
+      countEl.textContent = count;
+      if (count > 0) { countEl.classList.remove('hidden'); countEl.classList.add('cart-bounce'); setTimeout(() => countEl.classList.remove('cart-bounce'), 300); }
+      else countEl.classList.add('hidden');
+
+      const cartItemsEl = document.getElementById('cart-items');
+      const cartEmpty = document.getElementById('cart-empty');
+      const cartFooter = document.getElementById('cart-footer');
+
+      if (items.length === 0) {
+        cartItemsEl.innerHTML = '';
+        cartEmpty.classList.remove('hidden');
+        cartFooter.classList.add('hidden');
+      } else {
+        cartEmpty.classList.add('hidden');
+        cartFooter.classList.remove('hidden');
+        cartItemsEl.innerHTML = '';
+        items.forEach(item => {
+          const div = document.createElement('div');
+          div.className = 'flex items-center gap-3 bg-gray-50 rounded-lg p-2';
+          div.innerHTML = `
+        <span class="text-2xl">${item.emoji}</span>
+        <div class="flex-1 min-w-0">
+          <p class="font-bold text-sm text-gray-800 truncate">${item.name}</p>
+          <p class="text-xs font-bold" style="color:#81063a;">₹${item.price} each</p>
+        </div>
+        <div class="flex items-center gap-1 bg-[#81063a] rounded-full px-2 py-0.5">
+          <button onclick="removeFromCart(${item.id})" class="text-white font-black text-sm w-4 h-4 flex items-center justify-center">-</button>
+          <span class="text-white font-black text-sm">${item.qty}</span>
+          <button onclick="addToCart(${item.id})" class="text-white font-black text-sm w-4 h-4 flex items-center justify-center">+</button>
+        </div>
+        <span class="font-black text-sm text-gray-800 w-12 text-right">₹${item.price * item.qty}</span>`;
+          cartItemsEl.appendChild(div);
+        });
+      }
+
+      document.getElementById('cart-subtotal').textContent = `₹${subtotal}`;
+      document.getElementById('cart-delivery').textContent = delivery === 0 ? 'FREE' : `₹${delivery}`;
+      document.getElementById('cart-total').textContent = `₹${total}`;
+    }
+
+    function toggleCart() {
+      const drawer = document.getElementById('cart-drawer');
+      const overlay = document.getElementById('cart-overlay');
+      const isOpen = !drawer.classList.contains('translate-x-full');
+      if (isOpen) {
+        drawer.classList.add('translate-x-full');
+        overlay.classList.add('hidden');
+      } else {
+        drawer.classList.remove('translate-x-full');
+        overlay.classList.remove('hidden');
+      }
+    }
+
+    function filterByCuisine(cuisine) {
+      activeFilter = cuisine;
+      renderItems();
+    }
+
+    // Initialize
+    renderItems();
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,1732 @@
+<!doctype html>
+<html lang="en" class="h-full">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fable &amp; Frost — Food &amp; Cafe Menu</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="category icon" href="\photos\category-icon.png">
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&amp;family=DM+Sans:wght@300;400;500;600&amp;family=Poppins:wght@400;500;600;700&amp;display=swap"
+    rel="stylesheet">
+  <style>
+    h2 {
+      color: #81063a !important;
+    }
+
+    :root {
+      --bg: #fdf8f3;
+      --surface: #ffffff;
+      --text: #1a1a2e;
+      --accent: #81063a;
+      --warm: #e8a045;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    .playfair {
+      font-family: 'Poppins', serif;
+    }
+
+    .page-heading {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+    }
+
+    /* SEARCH BAR */
+    .header-search {
+      flex: 1;
+      max-width: 180px;
+      margin: 0 12px;
+      padding: 5px 10px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.15);
+      color: white;
+      font-size: 12px;
+      transition: all 0.2s;
+    }
+
+    .header-search::placeholder {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .header-search:focus {
+      outline: none;
+      background: rgba(255, 255, 255, 0.25);
+      border-color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* HEADER */
+    .gradient-top {
+      background: linear-gradient(180deg, #ffe7c4 0%, #ffffff 100%);
+    }
+
+    #main-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #ffe7c4;
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(192, 57, 43, 0.12);
+      transition: box-shadow 0.3s;
+    }
+
+    #main-header.scrolled {
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    /* PAGE SYSTEM */
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    /* HERO */
+    .hero-bg {
+      background: url('home-bg.png') center/cover no-repeat;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(26, 26, 46, 0.65), rgba(45, 27, 14, 0.45), rgba(192, 57, 43, 0.65)),
+        radial-gradient(ellipse at 30% 50%, rgba(232, 160, 69, 0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 70% 20%, rgba(192, 57, 43, 0.2) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    /* CAROUSEL */
+    .offers-track {
+      display: flex;
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .offers-slide {
+      min-width: 100%;
+      position: relative;
+    }
+
+    /* TOP SELLERS SCROLL */
+    .sellers-track {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 8px;
+      scrollbar-width: none;
+    }
+
+    .sellers-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .seller-card {
+      scroll-snap-align: start;
+      min-width: 200px;
+      flex-shrink: 0;
+    }
+
+    /* CATEGORY GRID */
+    .cat-icon-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .cat-icon-btn:hover {
+      transform: translateY(-4px);
+    }
+
+    .cat-icon-circle {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .cat-icon-btn:hover .cat-icon-circle {
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      transform: scale(1.08);
+    }
+
+    /* MENU ITEM CARD */
+    .menu-card {
+      background: var(--surface);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .menu-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+    }
+
+    /* TAG */
+    .tag {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      padding: 3px 8px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #c0392b, #e74c3c);
+      color: white;
+      display: inline-block;
+    }
+
+    .tag-new {
+      background: linear-gradient(135deg, #27ae60, #2ecc71);
+    }
+
+    .tag-seasonal {
+      background: linear-gradient(135deg, #e8a045, #f39c12);
+    }
+
+    /* PREVIEW SECTION */
+    .preview-track {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .preview-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .preview-img {
+      scroll-snap-align: start;
+      min-width: 160px;
+      flex-shrink: 0;
+    }
+
+    /* CATEGORY PAGE ITEMS */
+    .cat-item {
+      display: flex;
+      gap: 16px;
+      background: var(--surface);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      transition: box-shadow 0.2s;
+    }
+
+    .cat-item:hover {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    /* WHATSAPP BTN */
+    .wa-btn {
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      color: white;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+    }
+
+    .wa-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 14px rgba(37, 211, 102, 0.4);
+    }
+
+    /* BACK BTN */
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--accent);
+      font-weight: 600;
+      cursor: pointer;
+      padding: 8px 0;
+      transition: gap 0.2s;
+    }
+
+    .back-btn:hover {
+      gap: 10px;
+    }
+
+    /* DOTS */
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.4);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .dot.active {
+      background: white;
+      width: 24px;
+      border-radius: 4px;
+    }
+
+    /* SECTION DIVIDER */
+    .section-accent {
+      width: 48px;
+      height: 3px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--warm));
+      margin: 8px 0 20px;
+    }
+
+    /* OFFER CARDS */
+    .offer-1 {
+      background: none;
+    }
+
+    .offer-2 {
+      background: none;
+    }
+
+    .offer-3 {
+      background: none;
+    }
+
+    .offers-slide {
+      position: relative;
+      min-height: 180px;
+    }
+
+    .offers-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .offers-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.35));
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 16px;
+      color: #fff;
+    }
+
+    .offers-overlay span.tag {
+      background: rgba(0, 0, 0, 0.35);
+    }
+
+    .offers-overlay h3 {
+      font-family: 'Poppins', sans-serif;
+      margin-bottom: 8px;
+    }
+
+    .offers-overlay p {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    /* FOOD EMOJI PLACEHOLDER */
+    .food-emoji-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 52px;
+      background: #f5ece3;
+      border-radius: 12px;
+    }
+
+    .section {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 30px;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 40px;
+      width: 557px;
+      height: 530px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: #3d0817;
+    }
+
+    p {
+      margin: 10px 0;
+      line-height: 1.5;
+    }
+
+    /* SEARCH RESULTS */
+    .menu-item:hover {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .menu-item {
+      transition: all 0.2s ease;
+      background: var(--surface);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    .add-btn {
+      transition: all 0.15s;
+      background: #81063a;
+      color: white;
+    }
+
+    .add-btn:hover {
+      background: #a81a54;
+    }
+
+    .cart-bounce {
+      animation: cartPop 0.3s ease;
+    }
+
+    @keyframes cartPop {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.3);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .star {
+      color: #ff9f00;
+    }
+
+    @media (max-width: 640px) {
+      .seller-card {
+        min-width: 160px;
+      }
+
+      .preview-img {
+        min-width: 130px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr !important;
+        gap: 24px !important;
+      }
+    }
+
+    /* PARTY PACKAGES */
+    .party-track {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      padding: 12px 4px 20px;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+
+    .party-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .party-card {
+      flex: 0 0 240px;
+      scroll-snap-align: start;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .party-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 28px rgba(129, 6, 58, 0.18);
+    }
+
+    .party-card-img {
+      width: 100%;
+      height: 130px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .party-card-body {
+      padding: 12px 14px 14px;
+    }
+
+    .party-tag {
+      display: inline-block;
+      background: #81063a;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 99px;
+      margin-bottom: 6px;
+    }
+
+    .party-card h3 {
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 4px;
+      color: #1a1a2e;
+    }
+
+    .party-card .party-desc {
+      font-size: 11px;
+      opacity: 0.6;
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+
+    .party-price {
+      font-size: 18px;
+      font-weight: 900;
+      color: #81063a;
+    }
+
+    .party-price span {
+      font-size: 11px;
+      font-weight: 500;
+      color: #888;
+    }
+
+    .party-btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 7px;
+      border-radius: 99px;
+      background: #81063a;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      margin-top: 8px;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s;
+      font-family: inherit;
+    }
+
+    .party-btn:hover {
+      background: #a81a54;
+    }
+  </style>
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+  </style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+</head>
+
+<body class="h-full"><!-- HEADER -->
+  <header id="main-header">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center gap-4"><!-- Logo -->
+      <div class="flex items-center gap-2 cursor-pointer flex-shrink-0" onclick="navigateHome()">
+        <div
+          style="width:70px;height:60px;overflow:hidden;background:#ffe7c4;display:flex;align-items:center;justify-content:center;">
+          <a href="fable.html">
+            <img src="\photos\logo.png" alt="Cafe Logo" style="width:100%;height:100%;object-fit:cover;">
+          </a>
+        </div>
+      </div><!-- Search Bar -->
+      <div class="flex-1 max-w-sm relative">
+        <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400"></i>
+        <input id="search-input" type="text" placeholder="Search item..."
+          class="w-full rounded-full px-10 py-2 text-sm outline-none text-gray-800 font-semibold"
+          oninput="filterItems(this.value)">
+      </div><!-- Right Side: Name -->
+      <div
+        style="width:200px;height:60px;overflow:hidden;background:#ffe7c4;display:flex;align-items:center;justify-content:center;">
+        <img src="\photos\main.png" alt="Cafe main" style="width:100%;height:100%;object-fit:cover;" />
+      </div>
+    </div>
+  </header><!-- HOME PAGE -->
+
+  </div>
+  </section><!-- CATEGORY ICONS -->
+  <section class="py-8 px-4 max-w-5xl mx-auto gradient-top">
+    <div class="flex justify-between md:justify-center md:gap-12 flex-wrap gap-4"><button class="cat-icon-btn"
+        onclick="window.location.href='starters.html'">
+        <div class="cat-icon-circle" style="background:linear-gradient(135deg,#ffecd2,#fcb69f);">
+          🥗
+        </div><span class="text-xs font-500" style="color:var(--text);font-size:12px;font-weight:600;">Starters</span>
+      </button> <button class="cat-icon-btn" onclick="window.location.href='maincourse.html'">
+        <div class="cat-icon-circle" style="background:linear-gradient(135deg,#fde68a,#f59e0b20);">
+          🍛
+        </div><span class="text-xs font-500" style="color:var(--text);font-size:12px;font-weight:600;">Main
+          Course</span>
+      </button> <button class="cat-icon-btn" onclick="window.location.href='cafe.html'">
+        <div class="cat-icon-circle" style="background:linear-gradient(135deg,#d1fae5,#6ee7b7);">
+          ☕
+        </div><span class="text-xs font-500" style="color:var(--text);font-size:12px;font-weight:600">Cafe</span>
+      </button> <button class="cat-icon-btn" onclick="window.location.href='desserts.html'">
+        <div class="cat-icon-circle" style="background:linear-gradient(135deg,#fce7f3,#f9a8d4);">
+          🍰
+        </div><span class="text-xs font-500" style="color:var(--text);font-size:12px;font-weight:600;">Desserts</span>
+      </button> <button class="cat-icon-btn" onclick="window.location.href='beverages.html'">
+        <div class="cat-icon-circle" style="background:linear-gradient(135deg,#dbeafe,#93c5fd);">
+          🍹
+        </div><span class="text-xs font-500" style="color:var(--text);font-size:12px;font-weight:600;">Beverages</span>
+      </button>
+    </div>
+  </section><!-- OFFERS CAROUSEL -->
+  <section class="py-6 px-4 max-w-5xl mx-auto">
+    <div class="relative rounded-2xl overflow-hidden" style="max-height:220px;">
+      <div id="offers-wrapper" style="overflow:hidden;border-radius:16px;">
+        <div id="offers-track" class="offers-track"><!-- Slide 1 -->
+          <div class="offers-slide offer-1" style="min-height:180px;">
+            <img src="\photos\carousel1.png" alt="Happy Hour Special" />
+          </div><!-- Slide 2 -->
+          <div class="offers-slide offer-2" style="min-height:180px;">
+            <img src="\photos\carousel2.png" alt="Summer Fiesta Menu" />
+          </div><!-- Slide 3 -->
+          <div class="offers-slide offer-3" style="min-height:180px;">
+            <img src="\photos\carousel3.png" alt="Live Music Fridays" />
+          </div>
+        </div>
+      </div><!-- Dots -->
+      <div class="absolute bottom-4 left-0 right-0 flex justify-center gap-2" id="offer-dots">
+        <div class="dot active" onclick="goToSlide(0)"></div>
+        <div class="dot" onclick="goToSlide(1)"></div>
+        <div class="dot" onclick="goToSlide(2)"></div>
+      </div>
+    </div>
+  </section><!-- TOP SELLING -->
+  <section class="py-6 px-4 max-w-5xl mx-auto">
+    <div class="flex items-end gap-3 mb-1">
+      <h2 class="page-heading text-2xl font-bold">Top Selling Items</h2><span class="text-sm opacity-50 mb-1">Our guests
+        love these</span>
+    </div>
+    <div class="section-accent"></div>
+    <div class="sellers-track" id="sellers-track"><!-- Items -->
+      <div class="seller-card menu-card">
+        <div class="food-emoji-box" style="height:130px;">
+          <img src="\photos\grilledcottagecheesesandwich.png" alt="grilled cottage cheese sandwich"
+            style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+        <div class="p-3"><span class="tag">Most Ordered</span>
+          <p class="font-600 mt-2 text-sm font-semibold">Grilled Cottage Cheese Sandwich</p>
+          <p class="text-xs opacity-50">₹345</p>
+        </div>
+      </div>
+      <div class="seller-card menu-card">
+        <div class="food-emoji-box" style="height:130px;">
+          <img src="\photos\yogurtcottagecheeseexplosion.png" alt="Yogurt Cottage Cheese Explosion"
+            style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+        <div class="p-3"><span class="tag">Most Ordered</span>
+          <p class="font-600 mt-2 text-sm font-semibold">Yogurt Cottage Cheese Explosion</p>
+          <p class="text-xs opacity-50">₹495</p>
+        </div>
+      </div>
+      <div class="seller-card menu-card">
+        <div class="food-emoji-box" style="height:130px;">
+          <img src="\photos\glassnoodlespringroll.png" alt="Glass Noodle Spring Roll"
+            style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+        <div class="p-3"><span class="tag tag-seasonal">Fan Favourite</span>
+          <p class="font-600 mt-2 text-sm font-semibold">Glass Noodle Spring Roll</p>
+          <p class="text-xs opacity-50">₹299</p>
+        </div>
+      </div>
+      <div class="seller-card menu-card">
+        <div class="food-emoji-box" style="height:130px;">
+          <img src="\photos\spinach&ricottaravioli.png" alt="Spinach & Ricotta Ravioli"
+            style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+        <div class="p-3"><span class="tag">Most Ordered</span>
+          <p class="font-600 mt-2 text-sm font-semibold">Spinach & Ricotta Ravioli</p>
+          <p class="text-xs opacity-50">₹299</p>
+        </div>
+      </div>
+      <div class="seller-card menu-card">
+        <div class="food-emoji-box" style="height:130px;">
+          <img src="\photos\vegbiryani.png" alt="Veg Biryani"
+            style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+        <div class="p-3"><span class="tag tag-new">Chef's Pick</span>
+          <p class="font-600 mt-2 text-sm font-semibold">Veg Biryani</p>
+          <p class="text-xs opacity-50">₹399</p>
+        </div>
+      </div>
+    </div>
+  </section><!-- CATEGORY PREVIEWS --> <!-- Starters Preview -->
+  <section class="py-6 px-4 max-w-5xl mx-auto" id="section-starters">
+    <div class="flex items-center justify-between mb-1">
+      <h2 class="page-heading text-2xl font-bold">🥗 Starters</h2><button onclick="window.location.href='starters.html'"
+        class="text-sm font-semibold" style="color:var(--accent);">View All →</button>
+    </div>
+    <div class="section-accent"></div>
+    <div class="preview-track">
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:120px;min-width:150px;">
+          <img src="\photos\amritsarifishfinger.png" alt="Amritsari Fish Finger"
+            style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+        <p class="text-xs font-semibold mt-2 text-center">Amritsari Fish Finger</p>
+      </div>
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:120px;min-width:150px;">
+          <img src="\photos\chickenpepperonipizza.png" alt="Chicken Pepperoni Pizza"
+            style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+        <p class="text-xs font-semibold mt-2 text-center">Chicken Pepperoni Pizza</p>
+      </div>
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:120px;min-width:150px;">
+          <img src="\photos\saltedperiperifries.png" alt="Salted/Peri Peri Fries"
+            style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+        <p class="text-xs font-semibold mt-2 text-center">Salted/Peri Peri Fries</p>
+      </div>
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:120px;min-width:150px;">
+          <img src="\photos\vegloadednachos.png" alt="Veg Loaded Nachos"
+            style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+        <p class="text-xs font-semibold mt-2 text-center">Veg Loaded Nachos</p>
+      </div>
+    </div>
+  </section><!-- Main Course Preview -->
+  <section class="py-6 px-4 max-w-5xl mx-auto"
+    style="background:linear-gradient(180deg,transparent,#f9f0e6,transparent);" id="section-maincourse">
+    <div class="flex items-center justify-between mb-1">
+      <h2 class="page-heading text-2xl font-bold">🍛 Main Course</h2><button
+        onclick="window.location.href='maincourse.html'" class="text-sm font-semibold" style="color:var(--accent);">View
+        All →</button>
+    </div>
+    <div class="section-accent"></div>
+    <div class="preview-track">
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:120px;min-width:150px;">
+          <img src="\photos\butterchicken.png" alt="Butter Chicken"
+            style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+        <p class="text-xs font-semibold mt-2 text-center">Butter Chicken</p>
+      </div>
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:120px;min-width:150px;">
+          <img src="\photos\kadhaichicken.png" alt="Kadhai Chicken"
+            style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+        <p class="text-xs font-semibold mt-2 text-center">Kadhai Chicken</p>
+      </div>
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:120px;min-width:150px;">
+          <img src="\photos\daalmakhani.png" alt="Daal Makhani"
+            style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+        <p class="text-xs font-semibold mt-2 text-center">Daal Makhani</p>
+      </div>
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:120px;min-width:150px;">
+          <img src="\photos\vegbiryani.png" alt="Veg Biriyani"
+            style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+        <p class="text-xs font-semibold mt-2 text-center">Veg Biriyani</p>
+      </div>
+    </div>
+  </section><!-- Continental Preview -->
+  <section class="py-6 px-4 max-w-5xl mx-auto" id="section-continental">
+    <div class="flex items-center justify-between mb-1">
+      <h2 class="page-heading text-2xl font-bold">☕ Cafe</h2><button onclick="window.location.href='cafe.html'"
+        class="text-sm font-semibold" style="color:var(--accent);">View All →</button>
+    </div>
+    <div class="section-accent"></div>
+    <div class="preview-track">
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:120px;min-width:150px;">
+          <img src="\photos\classiccoldcoffee.png" alt="Classic Cold Coffee"
+            style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+        <p class="text-xs font-semibold mt-2 text-center">Classic Cold Coffee</p>
+      </div>
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:120px;min-width:150px;">
+          <img src="\photos\coldcoffeefrappe.png" alt="Cold Coffee Frappe"
+            style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+        <p class="text-xs font-semibold mt-2 text-center">Cold Coffee Frappe</p>
+      </div>
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:120px;min-width:150px;">
+          <img src="\photos\nutellafrappe.png" alt="Nutella Frappe"
+            style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+        <p class="text-xs font-semibold mt-2 text-center">Nutella Frappe</p>
+      </div>
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:120px;min-width:150px;">
+          <img src="\photos\cappuccino.png" alt="Cappuccino Hot Coffee"
+            style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+        <p class="text-xs font-semibold mt-2 text-center">Cappuccino Hot Coffee</p>
+      </div>
+    </div>
+  </section><!-- Desserts Preview -->
+  <section class="py-6 px-4 max-w-5xl mx-auto" id="section-desserts">
+    <div class="flex items-center justify-between mb-1">
+      <h2 class="page-heading text-2xl font-bold">🍰 Desserts</h2><button onclick="window.location.href='desserts.html'"
+        class="text-sm font-semibold" style="color:var(--accent);">View All →</button>
+    </div>
+    <div class="section-accent"></div>
+    <div class="preview-track">
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:120px;min-width:150px;">
+          <img src="\photos\browniewithicecream.png" alt="Brownie With Ice Cream"
+            style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+        <p class="text-xs font-semibold mt-2 text-center">Brownie With Ice Cream</p>
+      </div>
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:120px;min-width:150px;">
+          <img src="\photos\blueberrywaffle.png" alt="Blueberry Waffle"
+            style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+        <p class="text-xs font-semibold mt-2 text-center">Blueberry Waffle</p>
+      </div>
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:120px;min-width:150px;">
+          <img src="\photos\bananawaffle.png" alt="Nutella & Banana Waffle"
+            style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+        <p class="text-xs font-semibold mt-2 text-center">Nutella & Banana Waffle</p>
+      </div>
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:120px;min-width:150px;">
+          <img src="\photos\biscofflotus.png" alt="Biscoff Lotus Waffle"
+            style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+        <p class="text-xs font-semibold mt-2 text-center">Biscoff Lotus Waffle</p>
+      </div>
+    </div>
+  </section><!-- Beverages Preview -->
+  <section class="py-6 px-4 max-w-5xl mx-auto"
+    style="background:linear-gradient(180deg,transparent,#fef0f4,transparent);" id="section-beverages">
+    <div class="flex items-center justify-between mb-1">
+      <h2 class="page-heading text-2xl font-bold">🥤 Beverages</h2><button
+        onclick="window.location.href='beverages.html'" class="text-sm font-semibold" style="color:var(--accent);">View
+        All →</button>
+    </div>
+    <div class="section-accent"></div>
+    <div class="preview-track">
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:120px;min-width:150px;">
+          <img src="\photos\yuzulemonade.png" alt="Yuzu Lemonade"
+            style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+        <p class="text-xs font-semibold mt-2 text-center">Yuzu Lemonade</p>
+      </div>
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:120px;min-width:150px;">
+          <img src="\photos\watermelonmocktail.png" alt="Watermelon Mocktail"
+            style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+        <p class="text-xs font-semibold mt-2 text-center">Watermelon Mocktail</p>
+      </div>
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:120px;min-width:150px;">
+          <img src="\photos\Berryblastshake.png" alt="Berry Blast Shake"
+            style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+        <p class="text-xs font-semibold mt-2 text-center">Berry Blast Shake</p>
+      </div>
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:120px;min-width:150px;">
+          <img src="photos/oreoshake.png" alt="Coke"
+            style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+        <p class="text-xs font-semibold mt-2 text-center">Oreo Shake</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== GALLERY SECTION ===== -->
+  <section class="py-6 px-4 max-w-5xl mx-auto" id="section-gallery"
+    style="background:linear-gradient(180deg,transparent,#f9f0f4,transparent);">
+    <div class="flex items-center justify-between mb-1">
+      <h2 class="page-heading text-2xl font-bold">📸 Our Gallery</h2>
+      <button onclick="window.location.href='gallery.html'" class="text-sm font-semibold"
+        style="color:var(--accent);">View All →</button>
+    </div>
+    <div class="section-accent"></div>
+    <div class="preview-track">
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:240px;min-width:500px;">
+          <img src="\photos\011.jpeg" style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+
+      </div>
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:240px;min-width:500px;">
+          <img src="\photos\012.jpeg" style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+
+      </div>
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:240px;min-width:500px;">
+          <img src="\photos\013.jpeg" style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+
+      </div>
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:240px;min-width:500px;">
+          <img src="\photos\014.jpeg" style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+
+      </div>
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:240px;min-width:500px;">
+          <img src="\photos\015.jpeg" style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+
+      </div>
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:240px;min-width:500px;">
+          <img src="\photos\016.jpeg" style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+
+      </div>
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:240px;min-width:500px;">
+          <img src="\photos\017.jpeg" style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+
+      </div>
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:240px;min-width:500px;">
+          <img src="\photos\018.jpeg" style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+
+      </div>
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:240px;min-width:500px;">
+          <img src="\photos\022.jpeg" style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+
+      </div>
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:240px;min-width:500px;">
+          <img src="\photos\020.jpeg" style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+
+      </div>
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:240px;min-width:500px;">
+          <img src="\photos\021.jpeg" style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+
+      </div>
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:240px;min-width:500px;">
+          <img src="\photos\007.webp" alt="Butter Chicken"
+            style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+
+      </div>
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:240px;min-width:500px;">
+          <img src="\photos\004.webp" alt="Nutella Frappe"
+            style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+
+      </div>
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:240px;min-width:500px;">
+          <img src="\photos\bananawaffle.png" alt="Nutella Waffle"
+            style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+
+      </div>
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:240px;min-width:500px;">
+          <img src="\photos\chickenbiryani.png" alt="Chicken Biryani"
+            style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+
+      </div>
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:240px;min-width:500px;">
+          <img src="\photos\biscofflotus.png" alt="Biscoff Lotus Waffle"
+            style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+
+      </div>
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:240px;min-width:500px;">
+          <img src="\photos\browniewithicecream.png" alt="Brownie with Ice Cream"
+            style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+
+      </div>
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:240px;min-width:500px;">
+          <img src="\photos\shahipaneer.png" alt="Shahi Paneer"
+            style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+
+      </div>
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:240px;min-width:500px;">
+          <img src="\photos\chickentikkamasala.png" alt="Chicken Tikka Masala"
+            style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+
+      </div>
+      <div class="preview-img">
+        <div class="food-emoji-box rounded-xl" style="height:240px;min-width:500px;">
+          <img src="\photos\blueberrywaffle.png" alt="Blueberry Waffle"
+            style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PARTY PACKAGES SECTION ===== -->
+  <section class="py-8 px-4 max-w-5xl mx-auto" id="section-party">
+    <div class="flex items-center justify-between mb-1">
+      <h2 class="page-heading text-2xl font-bold">🎉 Party Packages</h2>
+    </div>
+    <div class="section-accent"></div>
+    <p class="text-sm opacity-55 mb-4">Celebrate every moment with us — curated packages for every occasion</p>
+
+    <div class="party-track">
+      <!-- Birthday Package -->
+      <div class="party-card">
+        <img class="party-card-img" src="\photos\gulabjamun.png" />
+        <div class="party-card-body">
+          <span class="party-tag">👨‍👩‍👧 Most Popular</span>
+          <h3>Budget Crowd Puller/Premium Budget Crowd Puller</h3>
+          <p>Choose 2 or 3 out of 4 Starters, 3 out of 6 Main Course, 1 or 2 Bread and 1 Dessert or 1 Beverages.</p>
+          <div class="party-price">₹799-₹999 <span>/ person</span></div>
+          <a href="https://wa.me/1234567890"><button class="party-btn"
+              onclick="alert('Thank you! We will call you to confirm your booking.')">Enquire
+              Now</button></a>
+        </div>
+      </div>
+      <!-- Corporate Package -->
+      <div class="party-card">
+        <img class="party-card-img" src="\photos\vegbiryani.png" />
+        <div class="party-card-body">
+          <span class="party-tag">👯‍♀️ Family</span>
+          <h3>Kitty Party/Premium Kitty Party</h3>
+          <p>Choose 2 or 3 out of 4 Starters, 2 out of 4 Main Course, 1 Bread, 1 Dessert and 1 Beverages.</p>
+          <div class="party-price">₹599-₹799 <span>/ person</span></div>
+          <a href="https://wa.me/1234567890"><button class="party-btn"
+              onclick="alert('Thank you! We will call you to confirm your booking.')">Enquire
+              Now</button></a>
+        </div>
+      </div>
+      <!-- Family Celebration -->
+      <div class="party-card">
+        <img class="party-card-img" src="\photos\chickentikkamasala.png" alt="Family Package" />
+        <div class="party-card-body">
+          <span class="party-tag">❤️Romantic</span>
+          <h3>Couple Package/Premium Couple Package</h3>
+          <p>2 Starters, 2 Main Course, 2 Drinks, 1 Dessert/2 Starters, 2 Main Course, Bread, 2 Mocktails,
+            Dessert.</p>
+          <div class="party-price">₹999-₹1199 <span>/ person</span></div>
+          <a href="https://wa.me/1234567890"><button class="party-btn"
+              onclick="alert('Thank you! We will call you to confirm your booking.')">Enquire
+              Now</button></a>
+        </div>
+      </div>
+      <!-- Date Night -->
+      <div class="party-card">
+        <img class="party-card-img" src="\photos\classiccoldcoffee.png" alt="Date Night" />
+        <div class="party-card-body">
+          <span class="party-tag">👬 Friends</span>
+          <h3>Friends Party/Premium Friends Party</h3>
+          <p>3 Starters, 2 Main Course, 1 Rice, 1 Noodles, 4 Drinks
+            /4 Starters, 3 Main Course, Bread, 4 Mocktails,
+            Dessert
+
+          </p>
+          <div class="party-price">₹1,199-₹1,499 <span>/ person</span></div>
+          <a href="https://wa.me/1234567890"><button class="party-btn"
+              onclick="alert('Thank you! We will call you to confirm your booking.')">Enquire
+              Now</button></a>
+        </div>
+      </div>
+      <!-- Brunch -->
+      <div class="party-card">
+        <img class="party-card-img" src="\photos\blueberrywaffle.png" alt="Brunch Package" />
+        <div class="party-card-body">
+          <span class="party-tag">🧍Buffet</span>
+          <h3>Buffet Combo/Individual Combo</h3>
+          <p>4 Starters, 5 Main Course, 1 Bread, 1 Rice, 1 Dessert and 1 Beverage/ 1 Starter , 1 Main , 1 Drink</p>
+          <div class="party-price">₹599-₹399 <span>/ person</span></div>
+          <button class="party-btn" onclick="alert('Thank you! We will call you to confirm your booking.')">Enquire
+            Now</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </div><!-- end home -->
+
+
+  <!-- SEARCH RESULTS PAGE -->
+  <div id="page-search" class="page">
+    <div class="max-w-6xl mx-auto px-4 py-6 pb-16">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="page-heading text-3xl font-bold">🔍 Search Results</h2>
+        <button class="back-btn" onclick="navigateHome()">
+          <i data-lucide="x" style="width:18px;height:18px;"></i> Close Search
+        </button>
+      </div>
+      <div id="search-results" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+      <div id="no-search-results" class="hidden text-center py-16 text-gray-400 font-semibold">
+        No items found for your search 😢<br>
+        <span class="text-sm">Try searching for different keywords</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CATEGORY PAGES --> <!-- Starters Page -->
+  <div id="page-starters" class="page">
+    <div class="max-w-3xl mx-auto px-4 py-6 pb-16"><button class="back-btn mb-4" onclick="navigateHome()"><i
+          data-lucide="arrow-left" style="width:18px;height:18px;"></i> Back to Menu</button>
+      <h2 class="page-heading text-3xl font-bold">🥗 Starters</h2>
+      <p class="text-sm opacity-50 mb-2">Light bites to kick off your dining experience</p>
+      <div class="section-accent"></div>
+      <div class="flex flex-col gap-4">
+        <div class="cat-item">
+          <div class="food-emoji-box rounded-xl flex-shrink-0" style="width:80px;height:80px;font-size:36px;">
+            🥗
+          </div>
+          <div>
+            <p class="font-bold">Garden Salad</p>
+            <p class="text-xs opacity-60 mt-1">Fresh greens, cherry tomatoes, cucumber, olive oil vinaigrette</p>
+            <p class="text-sm font-bold mt-2" style="color:var(--accent);">₹180</p>
+          </div>
+        </div>
+        <div class="cat-item">
+          <div class="food-emoji-box rounded-xl flex-shrink-0" style="width:80px;height:80px;font-size:36px;">
+            🥙
+          </div>
+          <div>
+            <p class="font-bold">Veg Spring Rolls</p>
+            <p class="text-xs opacity-60 mt-1">Crispy rolls stuffed with seasonal vegetables, served with chili dip</p>
+            <p class="text-sm font-bold mt-2" style="color:var(--accent);">₹220</p>
+          </div>
+        </div>
+        <div class="cat-item">
+          <div class="food-emoji-box rounded-xl flex-shrink-0" style="width:80px;height:80px;font-size:36px;">
+            🧆
+          </div>
+          <div>
+            <p class="font-bold">Falafel Bites</p>
+            <p class="text-xs opacity-60 mt-1">Deep-fried chickpea patties with tahini and pita bread</p>
+            <p class="text-sm font-bold mt-2" style="color:var(--accent);">₹240</p>
+          </div>
+        </div>
+        <div class="cat-item">
+          <div class="food-emoji-box rounded-xl flex-shrink-0" style="width:80px;height:80px;font-size:36px;">
+            🥘
+          </div>
+          <div>
+            <p class="font-bold">Paneer Tikka</p>
+            <p class="text-xs opacity-60 mt-1">Marinated cottage cheese grilled in tandoor, served with mint chutney</p>
+            <div class="flex items-center gap-2 mt-2">
+              <p class="text-sm font-bold" style="color:var(--accent);">₹280</p><span class="tag">Most Ordered</span>
+            </div>
+          </div>
+        </div>
+        <div class="cat-item">
+          <div class="food-emoji-box rounded-xl flex-shrink-0" style="width:80px;height:80px;font-size:36px;">
+            🫕
+          </div>
+          <div>
+            <p class="font-bold">Soup du Jour</p>
+            <p class="text-xs opacity-60 mt-1">Chef's daily special soup with artisan bread roll</p>
+            <p class="text-sm font-bold mt-2" style="color:var(--accent);">₹160</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- Main Course Page -->
+  <div id="page-maincourse" class="page">
+    <div class="max-w-3xl mx-auto px-4 py-6 pb-16"><button class="back-btn mb-4" onclick="navigateHome()"><i
+          data-lucide="arrow-left" style="width:18px;height:18px;"></i> Back to Menu</button>
+      <h2 class="page-heading text-3xl font-bold">🍛 Main Course</h2>
+      <p class="text-sm opacity-50 mb-2">Hearty, flavour-packed mains crafted with love</p>
+      <div class="section-accent"></div>
+      <div class="flex flex-col gap-4">
+        <div class="cat-item">
+          <div class="food-emoji-box rounded-xl flex-shrink-0" style="width:80px;height:80px;font-size:36px;">
+            🍛
+          </div>
+          <div>
+            <p class="font-bold">Dal Makhani</p>
+            <p class="text-xs opacity-60 mt-1">Slow-cooked black lentils in rich tomato cream sauce</p>
+            <p class="text-sm font-bold mt-2" style="color:var(--accent);">₹260</p>
+          </div>
+        </div>
+        <div class="cat-item">
+          <div class="food-emoji-box rounded-xl flex-shrink-0" style="width:80px;height:80px;font-size:36px;">
+            🍚
+          </div>
+          <div>
+            <p class="font-bold">Biryani</p>
+            <p class="text-xs opacity-60 mt-1">Fragrant basmati rice with aromatic spices and raita</p>
+            <div class="flex items-center gap-2 mt-2">
+              <p class="text-sm font-bold" style="color:var(--accent);">₹350</p><span class="tag">Most Ordered</span>
+            </div>
+          </div>
+        </div>
+        <div class="cat-item">
+          <div class="food-emoji-box rounded-xl flex-shrink-0" style="width:80px;height:80px;font-size:36px;">
+            🥘
+          </div>
+          <div>
+            <p class="font-bold">Paneer Butter Masala</p>
+            <p class="text-xs opacity-60 mt-1">Cottage cheese in velvety tomato-butter gravy</p>
+            <p class="text-sm font-bold mt-2" style="color:var(--accent);">₹290</p>
+          </div>
+        </div>
+        <div class="cat-item">
+          <div class="food-emoji-box rounded-xl flex-shrink-0" style="width:80px;height:80px;font-size:36px;">
+            🍗
+          </div>
+          <div>
+            <p class="font-bold">Butter Chicken</p>
+            <p class="text-xs opacity-60 mt-1">Tender chicken in silky makhani sauce with naan</p>
+            <div class="flex items-center gap-2 mt-2">
+              <p class="text-sm font-bold" style="color:var(--accent);">₹360</p><span class="tag tag-new">Chef's
+                Pick</span>
+            </div>
+          </div>
+        </div>
+        <div class="cat-item">
+          <div class="food-emoji-box rounded-xl flex-shrink-0" style="width:80px;height:80px;font-size:36px;">
+            🍖
+          </div>
+          <div>
+            <p class="font-bold">BBQ Platter</p>
+            <p class="text-xs opacity-60 mt-1">Assorted grilled meats with coleslaw and dipping sauces</p>
+            <p class="text-sm font-bold mt-2" style="color:var(--accent);">₹450</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- Continental Page -->
+  <div id="page-continental" class="page">
+    <div class="max-w-3xl mx-auto px-4 py-6 pb-16"><button class="back-btn mb-4" onclick="navigateHome()"><i
+          data-lucide="arrow-left" style="width:18px;height:18px;"></i> Back to Menu</button>
+      <h2 class="page-heading text-3xl font-bold">🍝 Cafe</h2>
+      <p class="text-sm opacity-50 mb-2">European classics reimagined for the modern palate</p>
+      <div class="section-accent"></div>
+      <div class="flex flex-col gap-4">
+        <div class="cat-item">
+          <div class="food-emoji-box rounded-xl flex-shrink-0" style="width:80px;height:80px;font-size:36px;">
+            🍝
+          </div>
+          <div>
+            <p class="font-bold">Pasta Carbonara</p>
+            <p class="text-xs opacity-60 mt-1">Creamy egg-based pasta with pancetta and parmesan</p>
+            <p class="text-sm font-bold mt-2" style="color:var(--accent);">₹340</p>
+          </div>
+        </div>
+        <div class="cat-item">
+          <div class="food-emoji-box rounded-xl flex-shrink-0" style="width:80px;height:80px;font-size:36px;">
+            🍜
+          </div>
+          <div>
+            <p class="font-bold">Pasta Arrabbiata</p>
+            <p class="text-xs opacity-60 mt-1">Penne in spicy tomato sauce with fresh basil</p>
+            <div class="flex items-center gap-2 mt-2">
+              <p class="text-sm font-bold" style="color:var(--accent);">₹320</p><span class="tag">Most Ordered</span>
+            </div>
+          </div>
+        </div>
+        <div class="cat-item">
+          <div class="food-emoji-box rounded-xl flex-shrink-0" style="width:80px;height:80px;font-size:36px;">
+            🥪
+          </div>
+          <div>
+            <p class="font-bold">Club Sandwich</p>
+            <p class="text-xs opacity-60 mt-1">Triple-decker with grilled chicken, cheese, and veggies</p>
+            <p class="text-sm font-bold mt-2" style="color:var(--accent);">₹280</p>
+          </div>
+        </div>
+        <div class="cat-item">
+          <div class="food-emoji-box rounded-xl flex-shrink-0" style="width:80px;height:80px;font-size:36px;">
+            🍕
+          </div>
+          <div>
+            <p class="font-bold">Wood-fire Pizza</p>
+            <p class="text-xs opacity-60 mt-1">Thin-crust pizza with mozzarella and seasonal toppings</p>
+            <p class="text-sm font-bold mt-2" style="color:var(--accent);">₹390</p>
+          </div>
+        </div>
+        <div class="cat-item">
+          <div class="food-emoji-box rounded-xl flex-shrink-0" style="width:80px;height:80px;font-size:36px;">
+            🥩
+          </div>
+          <div>
+            <p class="font-bold">Grilled Steak</p>
+            <p class="text-xs opacity-60 mt-1">Prime cut steak with mushroom sauce and mashed potato</p>
+            <div class="flex items-center gap-2 mt-2">
+              <p class="text-sm font-bold" style="color:var(--accent);">₹580</p><span class="tag tag-new">Premium</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- Desserts Page -->
+  <div id="page-desserts" class="page">
+    <div class="max-w-3xl mx-auto px-4 py-6 pb-16"><button class="back-btn mb-4" onclick="navigateHome()"><i
+          data-lucide="arrow-left" style="width:18px;height:18px;"></i> Back to Menu</button>
+      <h2 class="page-heading text-3xl font-bold">🧁 Desserts</h2>
+      <p class="text-sm opacity-50 mb-2">Sweet indulgences to end on a perfect note</p>
+      <div class="section-accent"></div>
+      <div class="flex flex-col gap-4">
+        <div class="cat-item">
+          <div class="food-emoji-box rounded-xl flex-shrink-0" style="width:80px;height:80px;font-size:36px;">
+            🧁
+          </div>
+          <div>
+            <p class="font-bold">Cupcakes</p>
+            <p class="text-xs opacity-60 mt-1">Freshly baked vanilla and chocolate cupcakes with frosting</p>
+            <p class="text-sm font-bold mt-2" style="color:var(--accent);">₹120</p>
+          </div>
+        </div>
+        <div class="cat-item">
+          <div class="food-emoji-box rounded-xl flex-shrink-0" style="width:80px;height:80px;font-size:36px;">
+            🍮
+          </div>
+          <div>
+            <p class="font-bold">Crème Brûlée</p>
+            <p class="text-xs opacity-60 mt-1">Classic French custard with caramelized sugar top</p>
+            <div class="flex items-center gap-2 mt-2">
+              <p class="text-sm font-bold" style="color:var(--accent);">₹240</p><span
+                class="tag tag-seasonal">Seasonal</span>
+            </div>
+          </div>
+        </div>
+        <div class="cat-item">
+          <div class="food-emoji-box rounded-xl flex-shrink-0" style="width:80px;height:80px;font-size:36px;">
+            🍰
+          </div>
+          <div>
+            <p class="font-bold">New York Cheesecake</p>
+            <p class="text-xs opacity-60 mt-1">Rich, creamy cheesecake with berry compote</p>
+            <div class="flex items-center gap-2 mt-2">
+              <p class="text-sm font-bold" style="color:var(--accent);">₹260</p><span class="tag">Most Ordered</span>
+            </div>
+          </div>
+        </div>
+        <div class="cat-item">
+          <div class="food-emoji-box rounded-xl flex-shrink-0" style="width:80px;height:80px;font-size:36px;">
+            🍫
+          </div>
+          <div>
+            <p class="font-bold">Chocolate Lava Cake</p>
+            <p class="text-xs opacity-60 mt-1">Warm molten chocolate cake with vanilla ice cream</p>
+            <div class="flex items-center gap-2 mt-2">
+              <p class="text-sm font-bold" style="color:var(--accent);">₹220</p><span class="tag">Fan Favourite</span>
+            </div>
+          </div>
+        </div>
+        <div class="cat-item">
+          <div class="food-emoji-box rounded-xl flex-shrink-0" style="width:80px;height:80px;font-size:36px;">
+            🍧
+          </div>
+          <div>
+            <p class="font-bold">Mango Sorbet</p>
+            <p class="text-xs opacity-60 mt-1">Refreshing homemade mango sorbet with a mint garnish</p>
+            <p class="text-sm font-bold mt-2" style="color:var(--accent);">₹160</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- Beverages Page -->
+  <div id="page-beverages" class="page">
+    <div class="max-w-3xl mx-auto px-4 py-6 pb-16"><button class="back-btn mb-4" onclick="navigateHome()"><i
+          data-lucide="arrow-left" style="width:18px;height:18px;"></i> Back to Menu</button>
+      <h2 class="page-heading text-3xl font-bold">☕ Beverages</h2>
+      <p class="text-sm opacity-50 mb-2">From morning brews to evening sips</p>
+      <div class="section-accent"></div>
+      <div class="flex flex-col gap-4">
+        <div class="cat-item">
+          <div class="food-emoji-box rounded-xl flex-shrink-0" style="width:80px;height:80px;font-size:36px;">
+            ☕
+          </div>
+          <div>
+            <p class="font-bold">Espresso</p>
+            <p class="text-xs opacity-60 mt-1">Single-origin espresso shot, bold and aromatic</p>
+            <p class="text-sm font-bold mt-2" style="color:var(--accent);">₹100</p>
+          </div>
+        </div>
+        <div class="cat-item">
+          <div class="food-emoji-box rounded-xl flex-shrink-0" style="width:80px;height:80px;font-size:36px;">
+            ☕
+          </div>
+          <div>
+            <p class="font-bold">Cold Brew Coffee</p>
+            <p class="text-xs opacity-60 mt-1">12-hour cold-steeped smooth coffee, served over ice</p>
+            <div class="flex items-center gap-2 mt-2">
+              <p class="text-sm font-bold" style="color:var(--accent);">₹180</p><span class="tag">Most Ordered</span>
+            </div>
+          </div>
+        </div>
+        <div class="cat-item">
+          <div class="food-emoji-box rounded-xl flex-shrink-0" style="width:80px;height:80px;font-size:36px;">
+            🧋
+          </div>
+          <div>
+            <p class="font-bold">Bubble Tea</p>
+            <p class="text-xs opacity-60 mt-1">Milk tea with chewy tapioca pearls, multiple flavours</p>
+            <p class="text-sm font-bold mt-2" style="color:var(--accent);">₹200</p>
+          </div>
+        </div>
+        <div class="cat-item">
+          <div class="food-emoji-box rounded-xl flex-shrink-0" style="width:80px;height:80px;font-size:36px;">
+            🍹
+          </div>
+          <div>
+            <p class="font-bold">Signature Mocktail</p>
+            <p class="text-xs opacity-60 mt-1">House blend of citrus, mint, and sparkling water</p>
+            <div class="flex items-center gap-2 mt-2">
+              <p class="text-sm font-bold" style="color:var(--accent);">₹220</p><span class="tag tag-new">New</span>
+            </div>
+          </div>
+        </div>
+        <div class="cat-item">
+          <div class="food-emoji-box rounded-xl flex-shrink-0" style="width:80px;height:80px;font-size:36px;">
+            🥤
+          </div>
+          <div>
+            <p class="font-bold">Fresh Juice</p>
+            <p class="text-xs opacity-60 mt-1">Seasonal fresh-pressed juices — orange, watermelon, or mixed</p>
+            <p class="text-sm font-bold mt-2" style="color:var(--accent);">₹160</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    // ---------- NAVIGATION ----------
+    function navigateTo(page) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById('page-' + page).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      lucide.createIcons();
+    }
+    function navigateHome() {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById('page-home').classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ---------- STICKY HEADER ----------
+    window.addEventListener('scroll', () => {
+      const hdr = document.getElementById('main-header');
+      if (window.scrollY > 10) hdr.classList.add('scrolled');
+      else hdr.classList.remove('scrolled');
+    });
+
+    // ---------- OFFERS CAROUSEL ----------
+    let currentSlide = 0;
+    const totalSlides = 3;
+    let autoSlideInterval;
+
+    function goToSlide(n) {
+      currentSlide = n;
+      document.getElementById('offers-track').style.transform = `translateX(-${n * 100}%)`;
+      document.querySelectorAll('#offer-dots .dot').forEach((d, i) => {
+        d.classList.toggle('active', i === n);
+      });
+    }
+    function nextSlide() {
+      goToSlide((currentSlide + 1) % totalSlides);
+    }
+    function startAutoSlide() {
+      autoSlideInterval = setInterval(nextSlide, 3500);
+    }
+    function stopAutoSlide() {
+      clearInterval(autoSlideInterval);
+    }
+
+    document.getElementById('offers-wrapper').addEventListener('mouseenter', stopAutoSlide);
+    document.getElementById('offers-wrapper').addEventListener('mouseleave', startAutoSlide);
+
+    // Touch swipe for offers carousel
+    let touchStartX = 0;
+    document.getElementById('offers-wrapper').addEventListener('touchstart', e => {
+      touchStartX = e.touches[0].clientX;
+      stopAutoSlide();
+    }, { passive: true });
+    document.getElementById('offers-wrapper').addEventListener('touchend', e => {
+      const diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) diff > 0 ? nextSlide() : goToSlide((currentSlide - 1 + totalSlides) % totalSlides);
+      startAutoSlide();
+    }, { passive: true });
+
+    startAutoSlide();
+
+    // ---------- SEARCH FUNCTIONALITY ----------
+    const allMenuItems = [
+      // Starters
+      { id: 1, name: "Paneer Tikka", category: "Starters", type: "veg", price: 280, originalPrice: 349, rating: 4.5, reviews: 892, bestseller: true, emoji: "🧆", desc: "Marinated cottage cheese grilled in tandoor with spices", img: "20.png" },
+      { id: 2, name: "Chicken 65", category: "Starters", type: "nonveg", price: 299, originalPrice: 399, rating: 4.6, reviews: 1204, bestseller: true, emoji: "🍗", desc: "Crispy fried chicken with fiery spices and curry leaves", img: "chicken65.png" },
+      { id: 3, name: "Veg Spring Rolls", category: "Starters", type: "veg", price: 220, originalPrice: 220, rating: 4.2, reviews: 432, bestseller: false, emoji: "🥢", desc: "Crispy golden rolls stuffed with fresh vegetables", img: "18.png" },
+      { id: 4, name: "Seekh Kebab", category: "Starters", type: "nonveg", price: 329, originalPrice: 420, rating: 4.7, reviews: 678, bestseller: true, emoji: "🍢", desc: "Minced meat kebabs with aromatic herbs on skewers", img: "seekh.png" },
+      { id: 5, name: "Aloo Tikki", category: "Starters", type: "veg", price: 180, originalPrice: 220, rating: 4.3, reviews: 567, bestseller: false, emoji: "🥔", desc: "Spiced potato patties with chutney", img: "17.png" },
+      { id: 6, name: "Manchurian", category: "Starters", type: "veg", price: 240, originalPrice: 299, rating: 4.4, reviews: 345, bestseller: false, emoji: "🥘", desc: "Indo-Chinese vegetable balls in spicy sauce", img: "19.png" },
+      // Main Course
+      { id: 7, name: "Butter Chicken", category: "Main Course", type: "nonveg", price: 399, originalPrice: 499, rating: 4.8, reviews: 3200, bestseller: true, emoji: "🍛", desc: "Tender chicken in rich creamy tomato-butter gravy", img: "butter chicken.png" },
+      { id: 8, name: "Dal Makhani", category: "Main Course", type: "veg", price: 279, originalPrice: 349, rating: 4.6, reviews: 1890, bestseller: true, emoji: "🫘", desc: "Slow-cooked black lentils with butter and cream", img: "daal makhni.png" },
+      { id: 9, name: "Paneer Butter Masala", category: "Main Course", type: "veg", price: 289, originalPrice: 360, rating: 4.4, reviews: 987, bestseller: false, emoji: "🥘", desc: "Cottage cheese in velvety tomato-butter gravy", img: "paneer.png" },
+      { id: 10, name: "Chicken Biryani", category: "Main Course", type: "nonveg", price: 379, originalPrice: 479, rating: 4.9, reviews: 8900, bestseller: true, emoji: "🍲", desc: "Aromatic dum-cooked chicken biryani", img: "biryani.png" },
+      { id: 11, name: "Palak Paneer", category: "Main Course", type: "veg", price: 289, originalPrice: 360, rating: 4.4, reviews: 987, bestseller: false, emoji: "🌿", desc: "Fresh cottage cheese in smooth spinach gravy", img: "palak.png" },
+      { id: 12, name: "Mutton Rogan Josh", category: "Main Course", type: "nonveg", price: 449, originalPrice: 580, rating: 4.7, reviews: 2100, bestseller: true, emoji: "🥩", desc: "Slow-cooked tender mutton in Kashmiri spice blend", img: "mutton.png" },
+      // Cafe
+      { id: 13, name: "Classic Margherita Pizza", category: "Cafe", type: "veg", price: 349, originalPrice: 449, rating: 4.6, reviews: 1200, bestseller: true, emoji: "🍕", desc: "Fresh mozzarella, tomato sauce, basil on thin crust", img: "conti 1.jpeg" },
+      { id: 14, name: "Chilli Basil Noodles", category: "Cafe", type: "veg", price: 279, originalPrice: 349, rating: 4.4, reviews: 890, bestseller: false, emoji: "🍜", desc: "Stir-fried noodles with chili, basil and vegetables", img: "conti 2.jpeg" },
+      { id: 15, name: "Crispy Veg Burger", category: "Cafe", type: "veg", price: 249, originalPrice: 299, rating: 4.5, reviews: 1450, bestseller: true, emoji: "🍔", desc: "Crispy vegetable patty with lettuce and mayo", img: "conti 3.jpeg" },
+      { id: 16, name: "Vegetarian Momos", category: "Cafe", type: "veg", price: 199, originalPrice: 249, rating: 4.3, reviews: 678, bestseller: false, emoji: "🥟", desc: "Steamed dumplings filled with vegetables", img: "conti 4.jpeg" },
+      { id: 17, name: "Chicken Alfredo Pasta", category: "Cafe", type: "nonveg", price: 399, originalPrice: 499, rating: 4.7, reviews: 950, bestseller: true, emoji: "🍝", desc: "Creamy fettuccine with grilled chicken", img: "pasta.png" },
+      // Beverages & Desserts
+      { id: 18, name: "Mango Lassi", category: "Beverages", type: "veg", price: 99, originalPrice: 129, rating: 4.6, reviews: 2300, bestseller: true, emoji: "🥭", desc: "Thick chilled yogurt blended with fresh Alphonso mangoes", img: "22.png" },
+      { id: 19, name: "Masala Chai", category: "Beverages", type: "veg", price: 49, originalPrice: 69, rating: 4.4, reviews: 4500, bestseller: false, emoji: "☕", desc: "Freshly brewed spiced tea with ginger and cardamom", img: "chai.png" },
+      { id: 20, name: "Blueberry Cheesecake", category: "Desserts", type: "veg", price: 199, originalPrice: 249, rating: 4.7, reviews: 1800, bestseller: true, emoji: "🫐", desc: "Creamy cheesecake topped with fresh blueberries", img: "21.png" },
+      { id: 21, name: "Gulab Jamun", category: "Desserts", type: "veg", price: 119, originalPrice: 149, rating: 4.7, reviews: 3400, bestseller: true, emoji: "🟤", desc: "Soft milk-solid dumplings soaked in rose sugar syrup", img: "gulab.png" },
+      { id: 22, name: "Chocolate Brownie", category: "Desserts", type: "veg", price: 149, originalPrice: 189, rating: 4.8, reviews: 2100, bestseller: true, emoji: "🍫", desc: "Rich chocolate brownie with vanilla ice cream", img: "brownie.png" }
+    ];
+
+    function performSearch(query) {
+      if (query.trim() === '') {
+        navigateHome();
+        return;
+      }
+
+      const results = allMenuItems.filter(item =>
+        item.name.toLowerCase().includes(query.toLowerCase()) ||
+        item.desc.toLowerCase().includes(query.toLowerCase()) ||
+        item.category.toLowerCase().includes(query.toLowerCase())
+      );
+
+      displaySearchResults(results, query);
+      navigateTo('search');
+    }
+
+    function displaySearchResults(results, query) {
+      const resultsContainer = document.getElementById('search-results');
+      const noResults = document.getElementById('no-search-results');
+
+      if (results.length === 0) {
+        resultsContainer.innerHTML = '';
+        noResults.classList.remove('hidden');
+        return;
+      }
+
+      noResults.classList.add('hidden');
+
+      resultsContainer.innerHTML = results.map(item => `
+        <div class="menu-item">
+          <div class="p-4">
+            <div class="flex gap-3 mb-3">
+              <div class="food-emoji-box flex-shrink-0" style="width:60px;height:60px;font-size:28px;">
+                <img src="${item.img}" alt="${item.name}" style="width:100%;height:100%;object-fit:cover;border-radius:12px;" />
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-start justify-between gap-2 mb-1">
+                  <h3 class="font-bold text-sm leading-tight">${item.name}</h3>
+                  <div class="flex items-center gap-1 text-xs">
+                    <i data-lucide="star" class="star" style="width:12px;height:12px;"></i>
+                    <span>${item.rating}</span>
+                  </div>
+                </div>
+                <p class="text-xs opacity-60 mb-2 line-clamp-2">${item.desc}</p>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    ${item.originalPrice > item.price ? `<span class="text-xs opacity-50 line-through">₹${item.originalPrice}</span>` : ''}
+                    <span class="font-bold" style="color:var(--accent);">₹${item.price}</span>
+                  </div>
+                  <span class="badge-${item.type} text-xs font-semibold">${item.type.toUpperCase()}</span>
+                </div>
+              </div>
+            </div>
+            <div class="text-center py-2">
+              <span class="font-bold text-xl" style="color:var(--accent);">₹${item.price}</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      lucide.createIcons();
+    }
+
+    function addToCart(id) {
+      // Add to cart functionality can be implemented here
+      const btn = event.target;
+      btn.classList.add('cart-bounce');
+      setTimeout(() => btn.classList.remove('cart-bounce'), 300);
+      console.log('Added item', id, 'to cart');
+    }
+
+    // ---------- ELEMENT SDK ----------
+    const defaultConfig = {
+      cafe_name: 'Bella Café',
+      whatsapp_number: '+1234567890',
+      hero_tagline: 'Fresh, Flavourful & Unforgettable',
+      background_color: '#fdf8f3',
+      surface_color: '#ffffff',
+      text_color: '#1a1a2e',
+      accent_color: '#c0392b',
+      warm_color: '#e8a045'
+    };
+
+    window.elementSdk.init({
+      defaultConfig,
+      onConfigChange: async (config) => {
+        const cafeName = config.cafe_name || defaultConfig.cafe_name;
+        const wa = config.whatsapp_number || defaultConfig.whatsapp_number;
+        const tagline = config.hero_tagline || defaultConfig.hero_tagline;
+
+        document.getElementById('header-cafe-name').textContent = cafeName;
+        document.getElementById('hero-cafe-name').textContent = cafeName;
+        document.getElementById('hero-tagline').textContent = tagline;
+        document.getElementById('wa-link').href = 'https://wa.me/' + wa.replace(/\D/g, '');
+
+        const bg = config.background_color || defaultConfig.background_color;
+        const surface = config.surface_color || defaultConfig.surface_color;
+        const text = config.text_color || defaultConfig.text_color;
+        const accent = config.accent_color || defaultConfig.accent_color;
+        const warm = config.warm_color || defaultConfig.warm_color;
+
+        document.documentElement.style.setProperty('--bg', bg);
+        document.documentElement.style.setProperty('--surface', surface);
+        document.documentElement.style.setProperty('--text', text);
+        document.documentElement.style.setProperty('--accent', accent);
+        document.documentElement.style.setProperty('--warm', warm);
+        document.body.style.background = bg;
+      },
+      mapToCapabilities: (config) => ({
+        recolorables: [
+          { get: () => config.background_color || defaultConfig.background_color, set: v => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+          { get: () => config.surface_color || defaultConfig.surface_color, set: v => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
+          { get: () => config.text_color || defaultConfig.text_color, set: v => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+          { get: () => config.accent_color || defaultConfig.accent_color, set: v => { config.accent_color = v; window.elementSdk.setConfig({ accent_color: v }); } },
+          { get: () => config.warm_color || defaultConfig.warm_color, set: v => { config.warm_color = v; window.elementSdk.setConfig({ warm_color: v }); } }
+        ],
+        borderables: [],
+        fontEditable: undefined,
+        fontSizeable: undefined
+      }),
+      mapToEditPanelValues: (config) => new Map([
+        ['cafe_name', config.cafe_name || defaultConfig.cafe_name],
+        ['whatsapp_number', config.whatsapp_number || defaultConfig.whatsapp_number],
+        ['hero_tagline', config.hero_tagline || defaultConfig.hero_tagline]
+      ])
+    });
+
+    lucide.createIcons();
+  </script>
+  <script>(function () { function c() { var b = a.contentDocument || a.contentWindow.document; if (b) { var d = b.createElement('script'); d.innerHTML = "window.__CF$cv$params={r:'9e0d909210cae622',t:'MTc3NDI3MDI1Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);"; b.getElementsByTagName('head')[0].appendChild(d) } } if (document.body) { var a = document.createElement('iframe'); a.height = 1; a.width = 1; a.style.position = 'absolute'; a.style.top = 0; a.style.left = 0; a.style.border = 'none'; a.style.visibility = 'hidden'; document.body.appendChild(a); if ('loading' !== document.readyState) c(); else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c); else { var e = document.onreadystatechange || function () { }; document.onreadystatechange = function (b) { e(b); 'loading' !== document.readyState && (document.onreadystatechange = e, c()) } } } })();</script>
+  <a id="wa-link" href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer" class="wa-btn"
+    style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+    <svg width="20" height="20" viewbox="0 0 24 24" fill="currentColor">
+      <path
+        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+    </svg>
+  </a>
+
+  <div class="card">
+    <h2 class="page-heading text-2xl font-bold">📍Find Us Here</h2>
+    <div class="section-accent"></div>
+    <iframe src="https://maps.google.com/maps?q=Fable%20%26%20Frost%20Cafe,%20Noida&t=&z=17&ie=UTF8&iwloc=&output=embed"
+      width="100%" height="410px" style="border:0; border-radius:10px; margin-top:16px;" allowfullscreen=""
+      loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+
+  </div>
+
+  <footer style="background: #81063a; color: #ffe7c4; padding: 32px 16px;">
+    <div class="footer-grid"
+      style="max-width:1200px;margin:0 auto;display:flex;gap:30px;justify-content:space-between;align-items:center;flex-wrap:nowrap;">
+      <div style="display:flex;flex-direction:column;gap:12px;text-align:left;flex:1;">
+        <div style="font-family:'Poppins',sans-serif;font-weight:700;font-size:18px;">Fable & Frost</div>
+        <div class="social-icons" style="display:flex;gap:16px;font-size:38px;">
+          <a href="https://www.instagram.com/fableandfrostnoida/" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="https://wa.me/917602023030" target="_blank"><i class="fab fa-whatsapp"></i></a>
+          <a href="https://www.facebook.com/profile.php?id=61581381218215" target="_blank"><i
+              class="fab fa-facebook-f"></i></a>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:10px;text-align:right;flex:1;">
+
+        <div style="font-family:'Poppins',sans-serif;font-weight:600;font-size:18px;padding-bottom:4%;">
+          Book Here
+        </div>
+
+        <div style="display:flex;justify-content:flex-end;gap:18px;">
+          <a href=" https://swiggy.onelink.me/BVRZ?af_dp=swiggydiners%3A%2F%2Fdetails%2F1273227%3Fsource%3Dsharing"
+            target="_blank" style="display:flex;gap:8px;">
+            <img src="\photos\swiggy.jpg" alt="Swiggy" style="height:50px;width:auto;" />
+          </a>
+          <a href="https://zomato.onelink.me/xqzv/e0ksphp3" target="_blank" style="display:flex;gap:8px;">
+            <img src="\photos\zomato.jpg" alt="Zomato" style="height:50px;width:auto;" />
+          </a>
+
+        </div>
+      </div>
+
+  </footer>
+
+
+</body>
+
+</html>
